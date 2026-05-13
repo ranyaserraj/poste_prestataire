@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Categorie__c</fullName>
+    <label>Catégorie</label>
+    <type>Picklist</type>
+    <required>false</required>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CIN</fullName>
+                <default>false</default>
+                <label>CIN</label>
+            </value>
+            <value>
+                <fullName>Diplome</fullName>
+                <default>false</default>
+                <label>Diplôme</label>
+            </value>
+            <value>
+                <fullName>INPE</fullName>
+                <default>false</default>
+                <label>INPE</label>
+            </value>
+            <value>
+                <fullName>Ordre_Medecins</fullName>
+                <default>false</default>
+                <label>Ordre des Médecins</label>
+            </value>
+            <value>
+                <fullName>Assurance_RC</fullName>
+                <default>false</default>
+                <label>Assurance RC</label>
+            </value>
+            <value>
+                <fullName>RIB</fullName>
+                <default>false</default>
+                <label>RIB</label>
+            </value>
+            <value>
+                <fullName>Fiscal</fullName>
+                <default>false</default>
+                <label>Fiscal</label>
+            </value>
+            <value>
+                <fullName>Divers</fullName>
+                <default>false</default>
+                <label>Divers</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

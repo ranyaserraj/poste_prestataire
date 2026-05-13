@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FS_Medecin_AT_vacation</fullName>
+    <description>Médecin - AT - Vacation</description>
+
+    <displayedFields><field>Numero_mission__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Statut__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Branche__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Nature_Mission__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Type_de_mission__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Type_de_prestation__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+
+    <displayedFields><field>Date_convocation__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+
+    <!-- AT vacation -->
+    <displayedFields><field>Sinistre_non_ouvert__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Numero_police__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Date_nomination__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+
+    <displayedFields><field>Heure_debut_passage__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Heure_fin_passage__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Nombre_dossiers__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+
+    <displayedFields><field>Reference_dossier_prestataire__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+    <displayedFields><field>Personnes_impliquees__c</field><isFieldManaged>false</isFieldManaged><isRequired>false</isRequired></displayedFields>
+
+    <label>FS_Medecin_AT_vacation</label>
+</FieldSet>

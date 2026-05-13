@@ -1,0 +1,454 @@
+﻿{
+    "eTag":  "82f808ac5ee99581cee47ba44c2cc2ee",
+    "picklistFieldValues":  {
+                                "Branche__c":  {
+                                                   "controllerValues":  {
+
+                                                                        },
+                                                   "defaultValue":  null,
+                                                   "eTag":  "fbf32dd58e71437dd44443a06dc15d0d",
+                                                   "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Branche__c",
+                                                   "values":  [
+                                                                  {
+                                                                      "attributes":  null,
+                                                                      "label":  "AT",
+                                                                      "validFor":  [
+
+                                                                                   ],
+                                                                      "value":  "AT"
+                                                                  },
+                                                                  {
+                                                                      "attributes":  null,
+                                                                      "label":  "Santé",
+                                                                      "validFor":  [
+
+                                                                                   ],
+                                                                      "value":  "Santé"
+                                                                  }
+                                                              ]
+                                               },
+                                "Degre_de_tribunal__c":  {
+                                                             "controllerValues":  {
+
+                                                                                  },
+                                                             "defaultValue":  null,
+                                                             "eTag":  "5252a0927bb1d71c21a5ff7c764e2c2c",
+                                                             "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Degre_de_tribunal__c",
+                                                             "values":  [
+                                                                            {
+                                                                                "attributes":  null,
+                                                                                "label":  "1ère instance",
+                                                                                "validFor":  [
+
+                                                                                             ],
+                                                                                "value":  "1ère instance"
+                                                                            },
+                                                                            {
+                                                                                "attributes":  null,
+                                                                                "label":  "Cour d\u0026#39;appel",
+                                                                                "validFor":  [
+
+                                                                                             ],
+                                                                                "value":  "Cour d\u0026#39;appel"
+                                                                            },
+                                                                            {
+                                                                                "attributes":  null,
+                                                                                "label":  "Cour de cassation",
+                                                                                "validFor":  [
+
+                                                                                             ],
+                                                                                "value":  "Cour de cassation"
+                                                                            }
+                                                                        ]
+                                                         },
+                                "Juridiction__c":  {
+                                                       "controllerValues":  {
+
+                                                                            },
+                                                       "defaultValue":  null,
+                                                       "eTag":  "7b84442fa9e90279d0ffc00de61bd969",
+                                                       "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Juridiction__c",
+                                                       "values":  [
+                                                                      {
+                                                                          "attributes":  null,
+                                                                          "label":  "Tribunal de première instance de Casablanca",
+                                                                          "validFor":  [
+
+                                                                                       ],
+                                                                          "value":  "Tribunal de première instance de Casablanca"
+                                                                      },
+                                                                      {
+                                                                          "attributes":  null,
+                                                                          "label":  "Tribunal de première instance de Rabat",
+                                                                          "validFor":  [
+
+                                                                                       ],
+                                                                          "value":  "Tribunal de première instance de Rabat"
+                                                                      },
+                                                                      {
+                                                                          "attributes":  null,
+                                                                          "label":  "Tribunal de première instance de Marrakech",
+                                                                          "validFor":  [
+
+                                                                                       ],
+                                                                          "value":  "Tribunal de première instance de Marrakech"
+                                                                      },
+                                                                      {
+                                                                          "attributes":  null,
+                                                                          "label":  "Cour d\u0026#39;appel de Casablanca",
+                                                                          "validFor":  [
+
+                                                                                       ],
+                                                                          "value":  "Cour d\u0026#39;appel de Casablanca"
+                                                                      },
+                                                                      {
+                                                                          "attributes":  null,
+                                                                          "label":  "Cour d\u0026#39;appel de Rabat",
+                                                                          "validFor":  [
+
+                                                                                       ],
+                                                                          "value":  "Cour d\u0026#39;appel de Rabat"
+                                                                      }
+                                                                  ]
+                                                   },
+                                "Nature_Mission__c":  {
+                                                          "controllerValues":  {
+                                                                                   "AT":  0,
+                                                                                   "Santé":  1
+                                                                               },
+                                                          "defaultValue":  null,
+                                                          "eTag":  "af0f47ab3e5ec7e9f4ae22e22f094525",
+                                                          "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Nature_Mission__c",
+                                                          "values":  [
+                                                                         {
+                                                                             "attributes":  null,
+                                                                             "label":  "Vacation sur siège",
+                                                                             "validFor":  [
+                                                                                              1
+                                                                                          ],
+                                                                             "value":  "Vacation sur siège"
+                                                                         },
+                                                                         {
+                                                                             "attributes":  null,
+                                                                             "label":  "Vacation sur site",
+                                                                             "validFor":  [
+                                                                                              1
+                                                                                          ],
+                                                                             "value":  "Vacation sur site"
+                                                                         },
+                                                                         {
+                                                                             "attributes":  null,
+                                                                             "label":  "Contrôle médicale",
+                                                                             "validFor":  [
+                                                                                              0
+                                                                                          ],
+                                                                             "value":  "Contrôle médicale"
+                                                                         },
+                                                                         {
+                                                                             "attributes":  null,
+                                                                             "label":  "Vacation",
+                                                                             "validFor":  [
+                                                                                              0
+                                                                                          ],
+                                                                             "value":  "Vacation"
+                                                                         }
+                                                                     ]
+                                                      },
+                                "Nature__c":  {
+                                                  "controllerValues":  {
+
+                                                                       },
+                                                  "defaultValue":  null,
+                                                  "eTag":  "752d976dcda6a5423a460d7e6f855008",
+                                                  "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Nature__c",
+                                                  "values":  [
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Expertise médicale AT",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Expertise_medicale_AT"
+                                                                 },
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Consolidation AT",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Consolidation_AT"
+                                                                 },
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Expertise corporelle RC",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Expertise_corporelle_RC"
+                                                                 },
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Contre-expertise",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Contre_expertise"
+                                                                 },
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Autre",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Autre"
+                                                                 }
+                                                             ]
+                                              },
+                                "Nature_de_dossier__c":  {
+                                                             "controllerValues":  {
+
+                                                                                  },
+                                                             "defaultValue":  null,
+                                                             "eTag":  "7dbc077a6dd1df7273f585697b2260df",
+                                                             "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Nature_de_dossier__c",
+                                                             "values":  [
+                                                                            {
+                                                                                "attributes":  null,
+                                                                                "label":  "Civil",
+                                                                                "validFor":  [
+
+                                                                                             ],
+                                                                                "value":  "Civil"
+                                                                            },
+                                                                            {
+                                                                                "attributes":  null,
+                                                                                "label":  "Pénal",
+                                                                                "validFor":  [
+
+                                                                                             ],
+                                                                                "value":  "Pénal"
+                                                                            },
+                                                                            {
+                                                                                "attributes":  null,
+                                                                                "label":  "Commercial",
+                                                                                "validFor":  [
+
+                                                                                             ],
+                                                                                "value":  "Commercial"
+                                                                            },
+                                                                            {
+                                                                                "attributes":  null,
+                                                                                "label":  "Administratif",
+                                                                                "validFor":  [
+
+                                                                                             ],
+                                                                                "value":  "Administratif"
+                                                                            }
+                                                                        ]
+                                                         },
+                                "Specialite__c":  {
+                                                      "controllerValues":  {
+
+                                                                           },
+                                                      "defaultValue":  null,
+                                                      "eTag":  "2bc60b8750aa2845416691574353efc9",
+                                                      "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Specialite__c",
+                                                      "values":  [
+                                                                     {
+                                                                         "attributes":  null,
+                                                                         "label":  "Orthopédie",
+                                                                         "validFor":  [
+
+                                                                                      ],
+                                                                         "value":  "Orthopedie"
+                                                                     },
+                                                                     {
+                                                                         "attributes":  null,
+                                                                         "label":  "Neurologie",
+                                                                         "validFor":  [
+
+                                                                                      ],
+                                                                         "value":  "Neurologie"
+                                                                     },
+                                                                     {
+                                                                         "attributes":  null,
+                                                                         "label":  "Psychiatrie",
+                                                                         "validFor":  [
+
+                                                                                      ],
+                                                                         "value":  "Psychiatrie"
+                                                                     },
+                                                                     {
+                                                                         "attributes":  null,
+                                                                         "label":  "Médecine générale",
+                                                                         "validFor":  [
+
+                                                                                      ],
+                                                                         "value":  "Medecine_generale"
+                                                                     },
+                                                                     {
+                                                                         "attributes":  null,
+                                                                         "label":  "Autre",
+                                                                         "validFor":  [
+
+                                                                                      ],
+                                                                         "value":  "Autre"
+                                                                     }
+                                                                 ]
+                                                  },
+                                "Statut__c":  {
+                                                  "controllerValues":  {
+
+                                                                       },
+                                                  "defaultValue":  null,
+                                                  "eTag":  "c8cf602d05c48c9183521ac959a44c2a",
+                                                  "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Statut__c",
+                                                  "values":  [
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Initiée",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Initiee"
+                                                                 },
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "En cours",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "En_cours"
+                                                                 },
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Rapport reçu",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Rapport_recu"
+                                                                 },
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Rapport attendu",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Rapport_attendu"
+                                                                 },
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Clôturée",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Cloturee"
+                                                                 },
+                                                                 {
+                                                                     "attributes":  null,
+                                                                     "label":  "Annulée",
+                                                                     "validFor":  [
+
+                                                                                  ],
+                                                                     "value":  "Annulee"
+                                                                 }
+                                                             ]
+                                              },
+                                "Type_Prestataire__c":  {
+                                                            "controllerValues":  {
+
+                                                                                 },
+                                                            "defaultValue":  null,
+                                                            "eTag":  "29545fc7e85cc6b3760e80d3fd8847d3",
+                                                            "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Type_Prestataire__c",
+                                                            "values":  [
+                                                                           {
+                                                                               "attributes":  null,
+                                                                               "label":  "Médecin",
+                                                                               "validFor":  [
+
+                                                                                            ],
+                                                                               "value":  "Medecin"
+                                                                           },
+                                                                           {
+                                                                               "attributes":  null,
+                                                                               "label":  "Avocat",
+                                                                               "validFor":  [
+
+                                                                                            ],
+                                                                               "value":  "Avocat"
+                                                                           }
+                                                                       ]
+                                                        },
+                                "Type_de_mission__c":  {
+                                                           "controllerValues":  {
+
+                                                                                },
+                                                           "defaultValue":  null,
+                                                           "eTag":  "f482f13ce67df68a5c0022869505e165",
+                                                           "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Type_de_mission__c",
+                                                           "values":  [
+                                                                          {
+                                                                              "attributes":  null,
+                                                                              "label":  "Auto-missionnement",
+                                                                              "validFor":  [
+
+                                                                                           ],
+                                                                              "value":  "Auto-missionnement"
+                                                                          },
+                                                                          {
+                                                                              "attributes":  null,
+                                                                              "label":  "Missionnement",
+                                                                              "validFor":  [
+
+                                                                                           ],
+                                                                              "value":  "Missionnement"
+                                                                          }
+                                                                      ]
+                                                       },
+                                "Type_de_prestation__c":  {
+                                                              "controllerValues":  {
+
+                                                                                   },
+                                                              "defaultValue":  null,
+                                                              "eTag":  "815c8be0dbb9f864d4916050bf3ff01b",
+                                                              "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Type_de_prestation__c",
+                                                              "values":  [
+                                                                             {
+                                                                                 "attributes":  null,
+                                                                                 "label":  "non modifiable",
+                                                                                 "validFor":  [
+
+                                                                                              ],
+                                                                                 "value":  "non modifiable"
+                                                                             }
+                                                                         ]
+                                                          },
+                                "Type_de_sinistre__c":  {
+                                                            "controllerValues":  {
+
+                                                                                 },
+                                                            "defaultValue":  null,
+                                                            "eTag":  "bf5c0efcab791c113632777e0398cbd4",
+                                                            "url":  "/services/data/v66.0/ui-api/object-info/Mission__c/picklist-values/012fj000004o1jNAAQ/Type_de_sinistre__c",
+                                                            "values":  [
+                                                                           {
+                                                                               "attributes":  null,
+                                                                               "label":  "AT",
+                                                                               "validFor":  [
+
+                                                                                            ],
+                                                                               "value":  "AT"
+                                                                           },
+                                                                           {
+                                                                               "attributes":  null,
+                                                                               "label":  "MP",
+                                                                               "validFor":  [
+
+                                                                                            ],
+                                                                               "value":  "MP"
+                                                                           }
+                                                                       ]
+                                                        }
+                            }
+}

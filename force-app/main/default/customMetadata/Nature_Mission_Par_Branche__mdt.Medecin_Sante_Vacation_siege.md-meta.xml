@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Médecin Santé Vacation siège</label>
+    <protected>false</protected>
+    <values>
+        <field>Label__c</field>
+        <value xsi:type="xsd:string">Médecin Santé Vacation siège</value>
+    </values>
+    <values>
+        <field>Type_Prestataire__c</field>
+        <value xsi:type="xsd:string">Medecin</value>
+    </values>
+    <values>
+        <field>Branche__c</field>
+        <value xsi:type="xsd:string">Santé</value>
+    </values>
+    <values>
+        <field>Nature_De_Mission__c</field>
+        <value xsi:type="xsd:string">Vacation sur siège</value>
+    </values>
+    <values>
+        <field>Actif__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+</CustomMetadata>
+

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Portail Médecin — Mission</label>
+    <hasActivationRequired>false</hasActivationRequired>
+
+    <!-- Ensure Mission record type "Medecin" is visible -->
+    <recordTypeVisibilities>
+        <recordType>Mission__c.Medecin</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+
+    <!-- Mission__c: required for UI API getObjectInfo + picklists + create -->
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Mission__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+
+    <!-- Fields used by the LWC / picklists -->
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Branche__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Nature_Mission__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Prestataire__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Type_Prestataire__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Type_de_mission__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Type_de_prestation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+
+    <!-- Champs utilisés par missionCreateMedecinModalCopy (createRecord) -->
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Date_nomination__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Date_survenance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Heure_debut_passage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Heure_fin_passage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Nom_societe__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Nombre_dossiers__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Numero_police__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Numero_sinistre__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Personnes_impliquees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Reference_dossier_prestataire__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Sinistre_non_ouvert__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Type_Sinistre__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+
+    <!-- Account field used for filtering -->
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Branches__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+</PermissionSet>
+

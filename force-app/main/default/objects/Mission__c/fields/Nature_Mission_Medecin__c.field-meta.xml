@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nature_Mission_Medecin__c</fullName>
+    <label>Nature de mission (Médecin)</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Vacation_siege</fullName>
+                <default>false</default>
+                <label>Vacation sur siège</label>
+            </value>
+            <value>
+                <fullName>Vacation_site</fullName>
+                <default>false</default>
+                <label>Vacation sur site</label>
+            </value>
+            <value>
+                <fullName>Controle_medicale</fullName>
+                <default>false</default>
+                <label>Contrôle médicale</label>
+            </value>
+            <value>
+                <fullName>Vacation_AT</fullName>
+                <default>false</default>
+                <label>Vacation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

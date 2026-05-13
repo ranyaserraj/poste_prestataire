@@ -1,0 +1,434 @@
+/**
+ * Modale seule (creerMission + autoMissionnement) — pas de bouton d’entrée.
+ */
+
+.helperBox {
+  border-color: #dddbda;
+}
+
+/* ── creerMission : backdrop ── */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+  animation: fadeIn 0.2s ease;
+}
+
+/* ── creerMission : modale centrée ── */
+.modal-container.modal-tech {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 20px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(34, 211, 238, 0.2);
+  z-index: 9999;
+  overflow: hidden;
+  animation: modalSlideIn 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-tech .modal-header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-tech .modal-header h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: white;
+  white-space: nowrap;
+}
+
+.modal-tech .modal-header h2::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  background: #22d3ee;
+  border-radius: 2px;
+  margin-right: 10px;
+  vertical-align: middle;
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.5);
+}
+
+.modal-tech .modal-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: all 0.2s;
+  backdrop-filter: blur(12px);
+}
+
+.modal-tech .modal-close:hover {
+  background: rgba(34, 211, 238, 0.15);
+  border-color: rgba(34, 211, 238, 0.4);
+  color: #22d3ee;
+  transform: scale(1.05);
+}
+
+/* Zone scroll (creerMission : .modal-tech .form-container) */
+.modal-tech .form-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 28px 28px 32px 28px;
+  scrollbar-width: thin;
+  scrollbar-color: #0044dd #e0e8f5;
+}
+
+.modal-tech .form-container::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-tech .form-container::-webkit-scrollbar-track {
+  background: #e0e8f5;
+  border-radius: 10px;
+}
+.modal-tech .form-container::-webkit-scrollbar-thumb {
+  background: #0044dd;
+  border-radius: 10px;
+}
+.modal-tech .form-container::-webkit-scrollbar-thumb:hover {
+  background: #002299;
+}
+
+/* ── autoMissionnementAvocat : carte blanche intérieure (.form-container) ── */
+.missionInnerCard {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  max-width: 860px;
+  margin: 0 auto;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+}
+
+.missionInnerCard .form-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+
+.missionInnerCard .form-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #181818;
+}
+
+.missionInnerCard .form-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+
+.missionInnerCard .step {
+  color: #939393;
+}
+.missionInnerCard .step.active {
+  color: #1e3a8a;
+  font-weight: 600;
+}
+.missionInnerCard .step.done {
+  color: #22d3ee;
+  font-weight: 600;
+}
+.missionInnerCard .step-sep {
+  color: #c9c9c9;
+}
+
+.missionInnerCard .form-body {
+  padding: 20px;
+}
+
+.missionInnerCard .section {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f3f3f3;
+}
+.missionInnerCard .section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.missionInnerCard .section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #706e6b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.alert-error {
+  background: #fcecea;
+  border: 1px solid #f5c0bc;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #ba0517;
+  margin-bottom: 12px;
+}
+
+.fieldError,
+.field-error {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #ba0517;
+}
+
+.fieldWithIcon {
+  position: relative;
+}
+
+.successIcon {
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #2e844a;
+}
+
+.successIcon::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 3px;
+  width: 6px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Hooks Lightning (champs type autoMissionnement .field-input) */
+.wizardRightInner {
+  --sds-c-input-radius-border: 4px;
+  --sds-c-input-color-background: #ffffff;
+  --sds-c-input-color-border: #c9c9c9;
+  --sds-c-input-shadow: none;
+  --sds-c-input-color-border-focus: #1e3a8a;
+  --sds-c-input-shadow-focus: 0 0 0 2px rgba(30, 58, 138, 0.15);
+
+  --sds-c-textarea-radius-border: 4px;
+  --sds-c-textarea-color-background: #ffffff;
+  --sds-c-textarea-color-border: #c9c9c9;
+  --sds-c-textarea-shadow: none;
+  --sds-c-textarea-color-border-focus: #1e3a8a;
+  --sds-c-textarea-shadow-focus: 0 0 0 2px rgba(30, 58, 138, 0.15);
+}
+
+.wizardRightInner :global(.slds-form-element__label) {
+  color: #3e3e3c;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.wizardRightInner :global(.slds-form-element) {
+  margin-bottom: 6px;
+}
+
+.wizardRightInner :global(.slds-input),
+.wizardRightInner :global(.slds-combobox__input),
+.wizardRightInner :global(.slds-textarea) {
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.wizardRightInner :global(.slds-input:hover),
+.wizardRightInner :global(.slds-combobox__input:hover),
+.wizardRightInner :global(.slds-textarea:hover) {
+  border-color: rgba(30, 58, 138, 0.35);
+}
+
+.fieldErrorState :global(.slds-input),
+.fieldErrorState :global(.slds-combobox__input) {
+  border-color: #ba0517 !important;
+  box-shadow: 0 0 0 1px #ba0517 inset !important;
+}
+
+.fieldSuccessState :global(.slds-input),
+.fieldSuccessState :global(.slds-combobox__input) {
+  border-color: #2e844a !important;
+  box-shadow: 0 0 0 1px #2e844a inset !important;
+}
+
+.btn-ajouter {
+  margin-top: 0;
+  background: #ffffff;
+  color: #1e3a8a;
+  border: 1px solid #1e3a8a;
+  border-radius: 4px;
+  height: 30px;
+  padding: 0 14px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s;
+}
+.btn-ajouter:hover:not(:disabled) {
+  background: rgba(30, 58, 138, 0.06);
+}
+.btn-ajouter:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.personsList {
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  margin-top: 8px;
+}
+
+.personsItem {
+  background: #ffffff;
+}
+
+.linkBtn {
+  background: transparent;
+  border: 0;
+  color: #1e3a8a;
+  text-decoration: underline;
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+}
+.linkBtn:hover {
+  color: #0f172a;
+}
+
+.missionInnerCard .form-footer {
+  padding: 12px 20px;
+  border-top: 1px solid #dddddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.form-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-annuler {
+  background: #ffffff;
+  color: #3e3e3c;
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+  height: 32px;
+  padding: 0 16px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s;
+}
+.btn-annuler:hover:not(:disabled) {
+  background: #f3f3f3;
+}
+.btn-annuler:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-suivant {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  height: 32px;
+  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3);
+}
+.btn-suivant:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.5);
+  transform: translateY(-1px);
+}
+.btn-suivant:disabled {
+  background: #c9c9c9;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -55%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-tech .modal-header h2 {
+    font-size: 1.2rem;
+  }
+  .modal-tech .modal-header {
+    padding: 16px 20px;
+  }
+  .modal-tech .form-container {
+    padding: 20px;
+  }
+}

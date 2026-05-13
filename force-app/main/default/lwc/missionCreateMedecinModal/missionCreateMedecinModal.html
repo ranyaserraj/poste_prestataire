@@ -1,0 +1,496 @@
+<template>
+  <div class="entryBtnWrap">
+    <lightning-button
+      class="entryBtn"
+      label="+ Nouvelle mission"
+      variant="brand"
+      onclick={open}
+    ></lightning-button>
+  </div>
+
+  <template if:true={isOpen}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-modal="true"
+      aria-label="Créer une mission (Médecin)"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container modalContainer">
+        <header class="slds-modal__header modalHeader">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Fermer"
+            onclick={close}
+          >
+            <lightning-icon icon-name="utility:close" alternative-text="Fermer" size="small"></lightning-icon>
+          </button>
+          <h2 class="slds-text-heading_medium slds-hyphenate headerTitle">
+            Créer une mission
+          </h2>
+        </header>
+
+        <div class="slds-modal__content modalBody">
+          <div class="wizardTop">
+            <div class="hStepper" aria-label="Progression">
+              <div class={hInfoStepClass}>
+                <div class="hCircle">
+                  <template if:true={isInfoStepComplete}>
+                    <span class="hCheck"></span>
+                  </template>
+                  <template if:false={isInfoStepComplete}>
+                    <span class="hNum">1</span>
+                  </template>
+                </div>
+                <div class="hLabel">Informations supplémentaires</div>
+              </div>
+
+              <template if:true={showPersonsStep}>
+                <div class={hLineClass} aria-hidden="true"></div>
+
+                <div class={hPersonsStepClass}>
+                  <div class="hCircle">
+                    <template if:true={isPersonsStepComplete}>
+                      <span class="hCheck"></span>
+                    </template>
+                    <template if:false={isPersonsStepComplete}>
+                      <span class="hNum">2</span>
+                    </template>
+                  </div>
+                  <div class="hLabel">Personnes impliquées</div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <div class="wizardContent wizardRightInner slds-p-around_medium">
+
+          <template if:true={errorMessage}>
+            <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+              <span class="slds-assistive-text">Erreur</span>
+              <h2>{errorMessage}</h2>
+            </div>
+          </template>
+
+          <template if:true={isInfoStep}>
+            <div class="slds-grid slds-wrap slds-gutters">
+              <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <lightning-combobox
+                  class={fieldClassBranche}
+                  name="branche"
+                  label="Branche de mission"
+                  value={branche}
+                  options={brancheOptions}
+                  onchange={handleBrancheChange}
+                  disabled={isBrancheLocked}
+                  required
+                ></lightning-combobox>
+                <template if:true={errors.branche}>
+                  <div class="fieldError">{errors.branche}</div>
+                </template>
+              </div>
+
+              <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <lightning-combobox
+                  class={fieldClassNature}
+                  name="nature"
+                  label="Nature de mission"
+                  value={nature}
+                  options={natureOptions}
+                  onchange={handleNatureChange}
+                  required
+                ></lightning-combobox>
+                <template if:true={errors.nature}>
+                  <div class="fieldError">{errors.nature}</div>
+                </template>
+              </div>
+
+              <template if:true={isSante}>
+                <template if:true={isSanteVacationSite}>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-input
+                      class={fieldClassNomSociete}
+                      name="nomSociete"
+                      label="Nom de société"
+                      value={nomSociete}
+                      onchange={handleNomSocieteChange}
+                      required
+                    ></lightning-input>
+                    <template if:true={errors.nomSociete}>
+                      <div class="fieldError">{errors.nomSociete}</div>
+                    </template>
+                  </div>
+                </template>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                  <div class="fieldWithIcon">
+                    <lightning-input
+                      class={fieldClassNumeroPolice}
+                      name="numeroPolice"
+                      label="Numéro de police"
+                      value={numeroPolice}
+                      onchange={handleNumeroPoliceChange}
+                    ></lightning-input>
+                    <template if:true={isPoliceOk}>
+                      <span class="successIcon" title="OK"></span>
+                    </template>
+                  </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                  <lightning-input
+                    class={fieldClassHeureDebut}
+                    type="time"
+                    name="heureDebut"
+                    label="Heure début de passage"
+                    value={heureDebut}
+                    onchange={handleHeureDebutChange}
+                    required
+                  ></lightning-input>
+                  <template if:true={errors.heureDebut}>
+                    <div class="fieldError">{errors.heureDebut}</div>
+                  </template>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                  <lightning-input
+                    class={fieldClassHeureFin}
+                    type="time"
+                    name="heureFin"
+                    label="Heure fin de passage"
+                    value={heureFin}
+                    onchange={handleHeureFinChange}
+                    required
+                  ></lightning-input>
+                  <template if:true={errors.heureFin}>
+                    <div class="fieldError">{errors.heureFin}</div>
+                  </template>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                  <lightning-input
+                    class={fieldClassNombreDossiers}
+                    type="number"
+                    name="nombreDossiers"
+                    label="Nombre de dossiers"
+                    min="0"
+                    value={nombreDossiers}
+                    onchange={handleNombreDossiersChange}
+                    required
+                  ></lightning-input>
+                  <template if:true={errors.nombreDossiers}>
+                    <div class="fieldError">{errors.nombreDossiers}</div>
+                  </template>
+                </div>
+              </template>
+
+              <template if:true={isAT}>
+                <template if:true={isATControle}>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-combobox
+                      class={fieldClassTypeSinistre}
+                      name="typeSinistre"
+                      label="Type de sinistre"
+                      value={typeSinistre}
+                      options={typeSinistreOptions}
+                      onchange={handleTypeSinistreChange}
+                      required
+                    ></lightning-combobox>
+                    <template if:true={errors.typeSinistre}>
+                      <div class="fieldError">{errors.typeSinistre}</div>
+                    </template>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-input
+                      class={fieldClassDateSurvenance}
+                      type="date"
+                      name="dateSurvenance"
+                      label="Date de survenance"
+                      value={dateSurvenance}
+                      onchange={handleDateSurvenanceChange}
+                      required
+                    ></lightning-input>
+                    <template if:true={errors.dateSurvenance}>
+                      <div class="fieldError">{errors.dateSurvenance}</div>
+                    </template>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-input
+                      class={fieldClassDateNomination}
+                      type="date"
+                      name="dateNomination"
+                      label="Date de nomination"
+                      value={dateNomination}
+                      onchange={handleDateNominationChange}
+                      required
+                    ></lightning-input>
+                    <template if:true={errors.dateNomination}>
+                      <div class="fieldError">{errors.dateNomination}</div>
+                    </template>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <div class="fieldWithIcon">
+                      <lightning-input
+                        class={fieldClassNumeroPolice}
+                        name="numeroPolice"
+                        label="Numéro de police"
+                        value={numeroPolice}
+                        onchange={handleNumeroPoliceChange}
+                      ></lightning-input>
+                      <template if:true={isPoliceOk}>
+                        <span class="successIcon" title="OK"></span>
+                      </template>
+                    </div>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <div class="fieldWithIcon">
+                      <lightning-input
+                        class={fieldClassNumeroSinistre}
+                        name="numeroSinistre"
+                        label="Numéro de sinistre"
+                        value={numeroSinistre}
+                        onchange={handleNumeroSinistreChange}
+                      ></lightning-input>
+                      <template if:true={isSinistreOk}>
+                        <span class="successIcon" title="OK"></span>
+                      </template>
+                    </div>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-input
+                      name="referenceDossier"
+                      label="Référence dossier prestataire"
+                      value={referenceDossier}
+                      onchange={handleReferenceDossierChange}
+                    ></lightning-input>
+                  </div>
+                </template>
+
+                <template if:true={isATVacation}>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-input
+                      class={fieldClassHeureDebut}
+                      type="time"
+                      name="heureDebut"
+                      label="Heure début de passage"
+                      value={heureDebut}
+                      onchange={handleHeureDebutChange}
+                      required
+                    ></lightning-input>
+                    <template if:true={errors.heureDebut}>
+                      <div class="fieldError">{errors.heureDebut}</div>
+                    </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-input
+                      class={fieldClassHeureFin}
+                      type="time"
+                      name="heureFin"
+                      label="Heure fin de passage"
+                      value={heureFin}
+                      onchange={handleHeureFinChange}
+                      required
+                    ></lightning-input>
+                    <template if:true={errors.heureFin}>
+                      <div class="fieldError">{errors.heureFin}</div>
+                    </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-input
+                      class={fieldClassNombreDossiers}
+                      type="number"
+                      name="nombreDossiers"
+                      label="Nombre de dossiers"
+                      min="0"
+                      value={nombreDossiers}
+                      onchange={handleNombreDossiersChange}
+                      required
+                    ></lightning-input>
+                    <template if:true={errors.nombreDossiers}>
+                      <div class="fieldError">{errors.nombreDossiers}</div>
+                    </template>
+                  </div>
+                </template>
+              </template>
+
+              <div class="slds-col slds-size_1-of-1 slds-m-top_large">
+                <lightning-input
+                  type="checkbox"
+                  name="sinistreNonOuvert"
+                  label="Sinistre non ouvert"
+                  checked={sinistreNonOuvert}
+                  onchange={handleSinistreNonOuvertChange}
+                ></lightning-input>
+              </div>
+            </div>
+          </template>
+
+          <template if:true={isPersonsStep}>
+            <template if:true={isATControle}>
+              <div class="slds-box slds-theme_default slds-m-bottom_medium">
+                <div class="slds-text-title_bold slds-m-bottom_small">Ajouter une personne impliquée</div>
+                <div class="slds-grid slds-wrap slds-gutters">
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-combobox
+                      class={fieldClassPersonType}
+                      name="personType"
+                      label="Type de personne"
+                      value={personType}
+                      options={personTypeOptions}
+                      onchange={handlePersonTypeChange}
+                      required
+                    ></lightning-combobox>
+                    <template if:true={errors.personType}>
+                      <div class="fieldError">{errors.personType}</div>
+                    </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-combobox
+                      class={fieldClassCivilite}
+                      name="civilite"
+                      label="Civilité"
+                      value={civilite}
+                      options={civiliteOptions}
+                      onchange={handleCiviliteChange}
+                      required
+                    ></lightning-combobox>
+                    <template if:true={errors.civilite}>
+                      <div class="fieldError">{errors.civilite}</div>
+                    </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-input
+                      class={fieldClassNom}
+                      name="nom"
+                      label="Nom"
+                      value={nom}
+                      onchange={handleNomChange}
+                      required
+                    ></lightning-input>
+                    <template if:true={errors.nom}>
+                      <div class="fieldError">{errors.nom}</div>
+                    </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-input
+                      class={fieldClassPrenom}
+                      name="prenom"
+                      label="Prénom"
+                      value={prenom}
+                      onchange={handlePrenomChange}
+                      required
+                    ></lightning-input>
+                    <template if:true={errors.prenom}>
+                      <div class="fieldError">{errors.prenom}</div>
+                    </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-input
+                      class={fieldClassDateNaissance}
+                      type="date"
+                      name="dateNaissance"
+                      label="Date de naissance"
+                      value={dateNaissance}
+                      onchange={handleDateNaissanceChange}
+                      required
+                    ></lightning-input>
+                    <template if:true={errors.dateNaissance}>
+                      <div class="fieldError">{errors.dateNaissance}</div>
+                    </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <lightning-combobox
+                      name="etatSante"
+                      label="État de santé"
+                      value={etatSante}
+                      options={etatSanteOptions}
+                      onchange={handleEtatSanteChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                  <lightning-button
+                    class="btnAddPerson"
+                    label="Ajouter personne"
+                    variant="neutral"
+                    onclick={addPerson}
+                    disabled={isSaving}
+                  ></lightning-button>
+                  <template if:true={errors.persons}>
+                    <div class="fieldError slds-m-top_x-small">{errors.persons}</div>
+                  </template>
+                </div>
+              </div>
+
+              <template if:true={hasPersons}>
+                <div class="slds-text-title_bold slds-m-bottom_small">Personnes ajoutées</div>
+                <ul class="slds-has-dividers_around-space personsList">
+                  <template for:each={persons} for:item="p">
+                    <li key={p.key} class="slds-item slds-p-around_small personsItem">
+                      <div class="slds-grid slds-wrap slds-grid_align-spread slds-grid_vertical-align-center">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-4">
+                          <div class="slds-text-body_regular">
+                            <strong>{p.personType}</strong> — {p.civilite} {p.nom} {p.prenom} ({p.dateNaissance})
+                          </div>
+                          <div class="slds-text-color_weak slds-text-body_small">{p.etatSante}</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-text-align_right">
+                          <button class="linkBtn" data-key={p.key} onclick={removePerson}>Supprimer</button>
+                        </div>
+                      </div>
+                    </li>
+                  </template>
+                </ul>
+              </template>
+            </template>
+
+            <template if:false={isATControle}>
+              <div class="slds-text-body_regular slds-text-color_weak">
+                Cette étape n’est nécessaire que pour la nature “Contrôle médicale”.
+              </div>
+            </template>
+          </template>
+        </div>
+        </div>
+
+        <footer class="slds-modal__footer">
+          <button class="textBtn" onclick={close} disabled={isSaving}>Annuler</button>
+
+          <button
+            class="btnOutline slds-m-left_small"
+            onclick={prev}
+            disabled={isPrevDisabled}
+          >
+            Précédent
+          </button>
+
+          <template if:true={showNext}>
+            <button
+              class="btnPrimary slds-m-left_small"
+              onclick={next}
+              disabled={isNextDisabled}
+            >
+              Suivant
+            </button>
+          </template>
+
+          <template if:true={showSubmit}>
+            <button
+              class="btnPrimary slds-m-left_small"
+              onclick={save}
+              disabled={isSubmitDisabled}
+            >
+              Soumettre
+            </button>
+          </template>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>
+
