@@ -52,6 +52,68 @@
         <readable>true</readable>
     </fieldPermissions>
 
+    <!-- Champs utilisés par missionCreateMedecinModalCopy (createRecord) -->
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Date_nomination__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Date_survenance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Heure_debut_passage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Heure_fin_passage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Nom_societe__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Nombre_dossiers__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Numero_police__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Numero_sinistre__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Personnes_impliquees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Reference_dossier_prestataire__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Sinistre_non_ouvert__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Mission__c.Type_Sinistre__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+
     <!-- Account field used for filtering -->
     <fieldPermissions>
         <editable>false</editable>

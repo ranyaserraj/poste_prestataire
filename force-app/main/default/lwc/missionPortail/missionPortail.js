@@ -1,4 +1,5 @@
 import { LightningElement, wire, track, api } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent }                     from 'lightning/platformShowToastEvent';
 import basePath                               from '@salesforce/community/basePath';
 import { getRecord, getFieldValue }           from 'lightning/uiRecordApi';
@@ -91,7 +92,7 @@ function tagColumn(col) {
     };
 }
 
-export default class MissionPortail8 extends LightningElement {
+export default class MissionPortail8 extends NavigationMixin(LightningElement) {
 
     /* ── PROPS ── */
     @api recordId;
@@ -100,7 +101,7 @@ export default class MissionPortail8 extends LightningElement {
      * Variante de la fiche détail après clic sur une ligne.
      * 'medecin' = ouvre la page Experience dédiée **uniquement** si le compte prestataire
      *             connecté est un record type Médecin (sinon fiche inline générique).
-     * 'default' = toujours fiche inline c-detail-mission.
+     * 'default' = clic ligne → page Experience détail (standard__webPage, ex. …/mission-detail?c__missionId=…).
      */
     @api detailVariant = 'default';
 
@@ -115,6 +116,12 @@ export default class MissionPortail8 extends LightningElement {
      * souvent en minuscules, ex. missionmedecin). Si vide, on dérive du nom API en minuscules.
      */
     @api medecinDetailUrlSlug;
+
+    /**
+     * Segment de page détail pour les prestataires **non** médecin (navigation standard__webPage).
+     * Ex. mission-detail → URL {basePath}/mission-detail?c__missionId=… (équivalent /PP/mission-detail si basePath=/PP).
+     */
+    @api nonMedecinDetailUrlPath = 'mission-detail';
 
     /** Record type Account (DeveloperName) issu du gate Apex — fiable en Experience Cloud. */
     @track gateAccountRtDevName = null;
@@ -424,8 +431,8 @@ export default class MissionPortail8 extends LightningElement {
     handleSearch(evt)        { this.searchTerm    = evt.target.value; }
 
     /**
-     * Navigue vers la page FlexiPage "missionDetails" avec l'ID de la mission.
-     * La page missionDetails doit être un Lightning Page qui accepte le paramètre "missionId".
+     * Médecin (variante + compte RT médecin) : page Experience dédiée (_navigateMedecinDetailPage).
+     * Autres prestataires : même pattern que la navigation collègue (standard__webPage vers mission-detail + c__missionId).
      */
     handleRowClick(evt) {
         const id = evt.currentTarget.dataset.id;
@@ -447,8 +454,15 @@ export default class MissionPortail8 extends LightningElement {
             return;
         }
 
-        // Variante défaut : affichage inline
-        this.selectedMissionId = id;
+        // Prestataires autres que Médecin : navigation explicite vers la page Experience « mission-detail »
+        // (comportement équivalent à /PP/mission-detail?c__missionId=… — basePath injecté par Salesforce).
+        const pathSeg = (normalizeValue(this.nonMedecinDetailUrlPath) || 'mission-detail').replace(/^\/+/, '');
+        const root = (basePath || '/PP').replace(/\/+$/, '');
+        const url = `${root}/${pathSeg}?c__missionId=${encodeURIComponent(id)}`;
+        this[NavigationMixin.Navigate]({
+            type: 'standard__webPage',
+            attributes: { url },
+        });
     }
 
     handleRetour() {
