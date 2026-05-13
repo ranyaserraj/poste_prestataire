@@ -1,0 +1,46 @@
+<template>
+    <div class="nav">
+        <div class="nav-brand">Mes Missions</div>
+        <div class="nav-links">
+            <template for:each={tabs} for:item="tab">
+                <button key={tab.value} 
+                        class={tab.className} 
+                        onclick={handleTabClick} 
+                        data-filter={tab.value}>
+                    {tab.label}
+                </button>
+            </template>
+        </div>
+    </div>
+
+    <div class="tl-content">
+        <div class="tl-filters">
+            <input type="text" 
+                   class="tl-search" 
+                   placeholder="Rechercher une mission..." 
+                   oninput={handleSearchChange}>
+        </div>
+
+        <div class="tl-table">
+            <div class="tl-tr tl-th">
+                <div class="tl-td">NOM MISSION</div>
+                <div class="tl-td">N° SINISTRE</div>
+                <div class="tl-td">BRANCHE</div>
+                <div class="tl-td">STATUT</div>
+                <div class="tl-td">DATE</div>
+            </div>
+
+            <template for:each={filteredMissions} for:item="m">
+                <div key={m.Id} class="tl-tr clickable" onclick={navigateToDetail} data-id={m.Id}>
+                    <div class="tl-td" style="font-weight:600;">{m.Name}</div>
+                    <div class="tl-td">{m.Numero_sinistre__c}</div>
+                    <div class="tl-td">{m.Branche__c}</div>
+                    <div class="tl-td">
+                        <span class={m.badgeClass}>{m.Statut__c}</span>
+                    </div>
+                    <div class="tl-td">{m.formattedDate}</div>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

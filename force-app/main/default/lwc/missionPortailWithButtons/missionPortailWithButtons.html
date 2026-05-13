@@ -1,0 +1,26 @@
+<template>
+  <c-mission-portail detail-variant="medecin" medecin-detail-url-slug="missionmedecin">
+    <div slot="newMissionButtons">
+      <!--
+        Chaque equipe ajoute ici son LWC bouton/popup.
+        Chaque LWC enfant gere lui-meme sa visibilite (profil, RecordType,
+        permissions, contexte metier...) afin que missionPortail reste generique.
+      -->
+
+      <!-- Medecin -->
+      <c-mission-create-medecin-modal-copy></c-mission-create-medecin-modal-copy>
+
+      <!-- Avocat (a injecter par l equipe Avocat) -->
+      <!-- <c-mission-create-avocat-modal></c-mission-create-avocat-modal> -->
+
+      <!-- Expert (a injecter par l equipe Expert) -->
+      <!-- <c-mission-create-expert-modal></c-mission-create-expert-modal> -->
+
+      <!-- Opticien (a injecter par l equipe Opticien) -->
+      <!-- <c-mission-create-opticien-modal></c-mission-create-opticien-modal> -->
+
+      <!-- Clinique (a injecter par l equipe Clinique) -->
+      <!-- <c-mission-create-clinique-modal></c-mission-create-clinique-modal> -->
+    </div>
+  </c-mission-portail>
+</template>

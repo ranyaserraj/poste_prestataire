@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nature_de_dossier__c</fullName>
+    <label>Nature de dossier</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Civil</fullName>
+                <default>false</default>
+                <label>Civil</label>
+            </value>
+            <value>
+                <fullName>Pénal</fullName>
+                <default>false</default>
+                <label>Pénal</label>
+            </value>
+            <value>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+                <label>Commercial</label>
+            </value>
+            <value>
+                <fullName>Administratif</fullName>
+                <default>false</default>
+                <label>Administratif</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

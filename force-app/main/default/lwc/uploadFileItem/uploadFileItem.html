@@ -1,0 +1,191 @@
+<template>
+    <div class={uploadContainerClass}>
+        <!-- Basic Card -->
+        <div class={cardClass}>
+
+            <!-- Card Header with Icon and Label inline -->
+            <div class="card-header">
+                <lightning-icon
+                    icon-name="standard:file"
+                    size="small"
+                    alternative-text="File"
+                    class="file-icon">
+                </lightning-icon>
+                <div class="file-label-wrapper" title={fileLabel}>
+                    <h3 class="file-label-scroller">
+                        {fileLabel}
+                        <template if:true={isRequired}>
+                            <span class="required-indicator" title="Ce fichier est obligatoire">*</span>
+                        </template>
+                    </h3>
+                </div>
+            </div>
+
+            <!-- Accordion Uploaded Files List -->
+            <template if:true={hasUploadedFiles}>
+                <div class="files-list-container">
+                    <template if:true={hasMultipleFiles}>
+                        <div class="files-list-header">
+                            <div class="header-left">
+                                <template if:true={hasMultipleFiles}>
+                                    <template if:true={isAccordionExpanded}>
+                                        <div class="checkbox-wrapper" onclick={stopProp}>
+                                            <input 
+                                                type="checkbox" 
+                                                class="master-checkbox"
+                                                checked={allSelected}
+                                                onchange={handleSelectAll}
+                                                title="Tout sélectionner" />
+                                        </div>
+                                    </template>
+                                </template>
+                                <div class="header-title-group" onclick={toggleAccordion}>
+                                    <span class="files-count">{filesCountLabel}</span>
+                                    <lightning-icon
+                                        icon-name="utility:chevrondown"
+                                        size="xx-small"
+                                        class={accordionIconClass}>
+                                    </lightning-icon>
+                                </div>
+                            </div>
+                            
+                            <template if:true={hasMultipleFiles}>
+                                <template if:true={isAccordionExpanded}>
+                                    <div class="header-right header-actions-group">
+                                        <!-- Preview All Button -->
+                                        <div class="header-action-btn" onclick={handlePreviewAll} title="Tout voir">
+                                            <span class="action-text">Tout voir</span>
+                                        </div>
+                                        
+                                        <!-- Delete Selected/All Button -->
+                                        <div class={deleteBtnClass} onclick={handleDeleteSelected} title="Supprimer la sélection">
+                                            <lightning-icon
+                                                icon-name="utility:delete"
+                                                size="x-small"
+                                                class="delete-all-icon">
+                                            </lightning-icon>
+                                            <template if:true={selectedFilesCount}>
+                                                <span class="selected-count">({selectedFilesCount})</span>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                        </div>
+                    </template>
+                    <div class={filesListClass}>
+                        <template for:each={uploadedFiles} for:item="uploadedFile">
+                            <div key={uploadedFile.contentDocumentId} class={getFileItemClass}>
+                                <template if:true={hasMultipleFiles}>
+                                    <input 
+                                        type="checkbox" 
+                                        class="file-checkbox"
+                                        data-file-id={uploadedFile.contentDocumentId}
+                                        checked={uploadedFile.selected}
+                                        onchange={handleFileSelection} />
+                                </template>
+                                <lightning-icon
+                                    icon-name="doctype:pdf"
+                                    size="xx-small"
+                                    class="file-item-icon">
+                                </lightning-icon>
+                                <div 
+                                    class="file-item-name-wrapper" 
+                                    title={uploadedFile.title}
+                                    data-file-id={uploadedFile.contentDocumentId}>
+                                    <span class="file-item-name-scroller">
+                                        {uploadedFile.title}
+                                    </span>
+                                </div>
+                                
+                                <div class="file-actions">
+                                    <lightning-icon
+                                        icon-name="utility:preview"
+                                        size="x-small"
+                                        class="preview-icon-action"
+                                        title="Aperçu"
+                                        data-file-id={uploadedFile.contentDocumentId}
+                                        onclick={handlePreviewUploadedFile}>
+                                    </lightning-icon>
+
+                                    <!-- Single Delete Icon (only show if singular) -->
+                                    <template if:false={hasMultipleFiles}>
+                                        <lightning-icon
+                                            icon-name="utility:delete"
+                                            size="x-small"
+                                            class="single-file-delete-action"
+                                            title="Supprimer ce fichier"
+                                            data-file-id={uploadedFile.contentDocumentId}
+                                            onclick={handleDeleteFile}>
+                                        </lightning-icon>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Upload Input Area -->
+            <div class="upload-section">
+                <template if:false={isDisabled}>
+                    
+                    <!-- Mobile Version (Native file upload element, no overlay tricks) -->
+                    <template if:true={isMobileDevice}>
+                        <div class="mobile-upload-container">
+                            <lightning-file-upload
+                                label="Charger un fichier"
+                                name={uniqueUploadName}
+                                accept=".pdf, .jpg, .jpeg, .png, .doc, .docx, .xls, .xlsx"
+                                record-id={recordId}
+                                disabled={isDisabled}
+                                onuploadfinished={handleUploadFinished}
+                                multiple={allowMultiple}
+                                class="mobile-file-upload">
+                            </lightning-file-upload>
+                        </div>
+                    </template>
+
+                    <!-- Desktop Version (Premium styling with overlay trick) -->
+                    <template if:false={isMobileDevice}>
+                        <div class="upload-input-container">
+                            <!-- Visual Layer (What the user sees) -->
+                            <div class="upload-visuals">
+                                <lightning-icon
+                                    icon-name="utility:upload"
+                                    size="x-small"
+                                    class="upload-icon-visual">
+                                </lightning-icon>
+                                <span class="upload-text-visual">Charger un fichier</span>
+                            </div>
+
+                            <!-- Functional Layer (The actual input, invisible but clickable) -->
+                            <lightning-file-upload
+                                label=""
+                                name={uniqueUploadName}
+                                accept=".pdf, .jpg, .jpeg, .png, .doc, .docx, .xls, .xlsx"
+                                record-id={recordId}
+                                disabled={isDisabled}
+                                onuploadfinished={handleUploadFinished}
+                                multiple={allowMultiple}
+                                class="file-upload-overlay">
+                            </lightning-file-upload>
+                        </div>
+                    </template>
+                    
+                </template>
+            </div>
+
+            <!-- Loading Overlay -->
+            <template if:true={isLoading}>
+                <div class="loading-overlay">
+                    <lightning-spinner 
+                        alternative-text="Téléchargement..." 
+                        size="small">
+                    </lightning-spinner>
+                </div>
+            </template>
+
+        </div>
+    </div>
+</template>

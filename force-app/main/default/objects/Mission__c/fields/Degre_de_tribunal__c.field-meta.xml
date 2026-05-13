@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Degre_de_tribunal__c</fullName>
+    <label>Degre de tribunal</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1ère instance</fullName>
+                <default>false</default>
+                <label>1ère instance</label>
+            </value>
+            <value>
+                <fullName>Cour d&apos;appel</fullName>
+                <default>false</default>
+                <label>Cour d&apos;appel</label>
+            </value>
+            <value>
+                <fullName>Cour de cassation</fullName>
+                <default>false</default>
+                <label>Cour de cassation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

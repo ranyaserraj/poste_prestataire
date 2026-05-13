@@ -1,0 +1,40 @@
+<template>
+  <section class="chat">
+    <div class="thread">
+      <template for:each={thread} for:item="m">
+        <div key={m.id} class={m.bubbleClass}>
+          <div class="msg-head">
+            <div class={m.avatarClass} aria-hidden="true">
+              <span class="avatar-text">{m.avatarText}</span>
+            </div>
+            <div class="msg-who">
+              <div class="msg-who-top">
+                <span class="msg-author">{m.author}</span>
+                <span class="msg-name">{m.name}</span>
+              </div>
+              <div class={m.metaClass}>{m.meta}</div>
+            </div>
+          </div>
+
+          <div class={m.bodyClass}>{m.text}</div>
+        </div>
+      </template>
+    </div>
+
+    <div class="composer">
+      <div class="tags">
+        <span class="tag-lbl">Tag :</span>
+        <template for:each={tags} for:item="t">
+          <button key={t} class="tag" onclick={handleTagClick}>{t}</button>
+        </template>
+      </div>
+
+      <div class="compose-row">
+        <textarea class="input" placeholder="Répondre au gestionnaire..."></textarea>
+        <div class="actions">
+          <button class="btn btn--primary" onclick={handleSend}>Envoyer</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

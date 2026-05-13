@@ -1,0 +1,312 @@
+.form-container {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    max-width: 860px;
+    margin: 20px auto;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+}
+
+/* Header */
+.form-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #dddddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #181818;
+}
+
+.form-steps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.step { color: #939393; }
+.step.active { 
+    color: #1e3a8a;        /* ← était #0176d3 */
+    font-weight: 600; 
+}
+.step.done { 
+    color: #22d3ee;        /* ← accent cyan du header */
+}
+.step-sep { color: #c9c9c9; }
+
+/* Body */
+.form-body { padding: 20px; }
+
+/* Section */
+.section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f3f3f3;
+}
+.section:last-child { border-bottom: none; }
+
+.section-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #706e6b;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Grid */
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+/* Fields */
+.field { display: flex; flex-direction: column; gap: 4px; }
+
+.field-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #3e3e3c;
+}
+
+.field-hint {
+    font-size: 10px;
+    font-weight: 400;
+    color: #939393;
+    margin-left: 6px;
+}
+
+.required { color: #ba0517; }
+
+.field-input {
+    height: 32px;
+    border: 1px solid #c9c9c9;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 12px;
+    outline: none;
+    font-family: inherit;
+    background: #ffffff;
+    color: #181818;
+    transition: border-color .12s;
+}
+
+.field-input:focus { 
+    border-color: #1e3a8a;           /* ← était #0176d3 */
+    box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.15);
+}
+
+/* ── Count badge ── */
+.count-badge {
+    background: #1e3a8a;             /* ← était #0176d3 */
+    color: #ffffff;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 7px;
+}
+.field-readonly {
+    height: 32px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 12px;
+    background: #f3f3f3;
+    color: #706e6b;
+    display: flex;
+    align-items: center;
+}
+
+.field-error {
+    font-size: 11px;
+    color: #ba0517;
+}
+
+/* Dossier parsé */
+.dossier-parsed {
+    background: rgba(30, 58, 138, 0.06);   /* ← était #e8f4fd */
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 11px;
+    color: #0f172a;
+    margin-top: 6px;
+    display: flex;
+    gap: 16px;
+}
+/* Erreur alerte */
+.alert-error {
+    background: #fcecea;
+    border: 1px solid #f5c0bc;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #ba0517;
+    margin-top: 8px;
+}
+
+/* Bouton ajouter personne */
+.btn-ajouter {
+    margin-top: 12px;
+    background: #ffffff;
+    color: #1e3a8a;                  /* ← était #0176d3 */
+    border: 1px solid #1e3a8a;
+    border-radius: 4px;
+    height: 30px;
+    padding: 0 14px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .12s;
+}
+.btn-ajouter:hover { 
+    background: rgba(30, 58, 138, 0.06);   /* ← était #e8f4fd */
+}
+
+/* Table personnes */
+.personnes-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.personnes-table th {
+    padding: 6px 10px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: #706e6b;
+    background: #f3f3f3;
+    border-bottom: 1px solid #dddddd;
+}
+
+.personnes-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    color: #3e3e3c;
+}
+
+.personnes-table tr:last-child td { border-bottom: none; }
+
+.btn-supprimer {
+    background: none;
+    border: none;
+    color: #ba0517;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+.btn-supprimer:hover { background: #fcecea; }
+
+/* Empty */
+.empty-personnes {
+    text-align: center;
+    color: #939393;
+    padding: 20px;
+    font-size: 12px;
+    border: 2px dashed #e5e5e5;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+/* Count badge */
+.count-badge {
+    background: #0176d3;
+    color: #ffffff;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 7px;
+}
+
+/* Footer */
+.form-footer {
+    padding: 12px 20px;
+    border-top: 1px solid #dddddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-annuler {
+    background: #ffffff;
+    color: #3e3e3c;
+    border: 1px solid #c9c9c9;
+    border-radius: 4px;
+    height: 32px;
+    padding: 0 16px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .12s;
+}
+.btn-annuler:hover { background: #f3f3f3; }
+
+.btn-suivant {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);  /* ← gradient header */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    height: 32px;
+    padding: 0 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3);
+}
+.btn-suivant:hover { 
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.5);
+    transform: translateY(-1px);
+}
+.btn-suivant:disabled { 
+    background: #c9c9c9; 
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+/* Succès */
+.success-box {
+    padding: 40px 20px;
+    text-align: center;
+}
+.success-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #eaf5ea;
+    color: #2e844a;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+}
+.success-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #181818;
+    margin-bottom: 6px;
+}
+.success-num {
+    font-size: 13px;
+    color: #706e6b;
+    font-family: monospace;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,31 @@
+<template>
+    <div class="mission-detail-card">
+
+        <template if:true={isLoading}>
+            <div class="loading">Chargement...</div>
+        </template>
+
+        <template if:false={isLoading}>
+
+            <template if:true={error}>
+                <div class="alert-warning">{error}</div>
+            </template>
+
+            <template if:false={error}>
+                <div class="card">
+                    <div class="card-title">{missionName}</div>
+                    <div class="fields-grid">
+                        <template for:each={fields} for:item="field">
+                            <div key={field.apiName} class="field-item">
+                                <span class="field-label">{field.label}</span>
+                                <span class="field-value">{field.value}</span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+        </template>
+
+    </div>
+</template>

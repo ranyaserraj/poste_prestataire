@@ -1,0 +1,56 @@
+<template>
+
+<!-- LIST -->
+<template if:true={isList}>
+
+<div class="tbl-head">
+    <div>
+        <button class={filterToutes} onclick={handleFilterToutes}>Toutes</button>
+        <button class={filterEncours} onclick={handleFilterEncours}>En cours</button>
+        <button class={filterRapport} onclick={handleFilterRapport}>Rapport remis</button>
+        <button class={filterCloture} onclick={handleFilterCloture}>Clôturée</button>
+    </div>
+
+    <input class="tbl-search" placeholder="Rechercher..." oninput={handleSearch}/>
+</div>
+
+<div class="tbl-wrap">
+<table>
+<tbody>
+<template for:each={filteredMissions} for:item="m">
+<tr key={m.id} data-id={m.id} onclick={handleMissionClick}>
+<td>{m.name}</td>
+<td>{m.nature}</td>
+<td>
+    <span class={m.badgeClass}>
+        {m.statut}
+    </span>
+</td>
+</tr>
+</template>
+</tbody>
+</table>
+</div>
+
+</template>
+
+<!-- DETAIL -->
+<template if:true={isDetail}>
+
+<div class="card">
+    <div class="card-title">
+        {activeMission.name}
+
+        <button class="fbtn on">TEST</button>
+        <button class="fbtn" onclick={handleRetour}>Retour</button>
+    </div>
+
+    <div>
+        <p><strong>Nature :</strong> {activeMission.nature}</p>
+        <p><strong>Statut :</strong> {activeMission.statut}</p>
+    </div>
+</div>
+
+</template>
+
+</template>

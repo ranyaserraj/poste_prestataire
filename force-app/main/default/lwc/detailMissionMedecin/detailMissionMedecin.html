@@ -1,0 +1,156 @@
+<template>
+  <div class="dm-root">
+    <template if:true={isLoading}>
+      <div class="dm-loading" role="status" aria-live="polite">
+        <lightning-spinner alternative-text="Chargement" size="medium" variant="brand"></lightning-spinner>
+        <p class="dm-loading-txt">Chargement de la mission…</p>
+      </div>
+    </template>
+
+    <template if:false={isLoading}>
+      <template if:false={hasMissionId}>
+        <div class="dm-emptyState">
+          <div class="dm-emptyTitle">Détail mission médecin</div>
+          <div class="dm-emptyText">Aucune mission sélectionnée.</div>
+          <div class="dm-emptyText">Passe un <strong>missionId</strong> ou ouvre la fiche depuis “Mes missions”.</div>
+        </div>
+      </template>
+
+      <template if:true={error}>
+        <div class="dm-error">
+          <div class="dm-errorTitle">Impossible d’afficher la mission</div>
+          <div class="dm-errorBody">{error}</div>
+        </div>
+      </template>
+
+      <template if:false={error}>
+        <section class="dm-shell">
+          <template if:true={showBackButton}>
+            <div class="dm-topbar">
+              <button class="dm-back" type="button" onclick={handleBack}>← {backLabel}</button>
+            </div>
+          </template>
+          <header class="dm-head">
+            <div class="dm-titleRow">
+              <div class="dm-titleWrap">
+                <div class="dm-title">{missionTitle}</div>
+                <template if:true={subtitleText}>
+                  <div class="dm-sub">{subtitleText}</div>
+                </template>
+              </div>
+              <div class="dm-badges">
+                <template if:true={showStatutBadge}>
+                  <span class="dm-pill dm-pill--statut">{badgeStatut}</span>
+                </template>
+                <template if:true={showBrancheBadge}>
+                  <span class="dm-pill dm-pill--branche">{badgeBranche}</span>
+                </template>
+                <span class="dm-pill dm-pill--type">{badgeType}</span>
+              </div>
+            </div>
+
+            <dl class="dm-meta">
+              <template for:each={summaryItems} for:item="row">
+                <div key={row.key} class={row.cellClass}>
+                  <dt class="dm-meta-lbl">{row.label}</dt>
+                  <dd class="dm-meta-val">
+                    <template if:true={row.warn}>
+                      <span class="dm-warn">
+                        <span class="dm-warn-icon" aria-hidden="true">!</span>
+                        {row.value}
+                      </span>
+                    </template>
+                    <template if:false={row.warn}>
+                      {row.value}
+                    </template>
+                  </dd>
+                </div>
+              </template>
+            </dl>
+          </header>
+
+          <nav class="dm-tabs" aria-label="Sections mission">
+            <template for:each={tabsNav} for:item="t">
+              <button key={t.key} class={t.tabClass} type="button" data-id={t.id} onclick={handleTabClick}>
+                <lightning-icon icon-name={t.icon} size="x-small" class="dm-tab-icn"></lightning-icon>
+                <span class="dm-tab-txt">{t.label}</span>
+                <template if:true={t.showBadge}>
+                  <span class="dm-tab-badge">{t.badgeCount}</span>
+                </template>
+              </button>
+            </template>
+          </nav>
+
+          <div class="dm-body">
+            <template if:true={showInfos}>
+              <div class="dm-grid">
+                <section class="dm-card">
+                  <div class="dm-card-h">Détails de la mission</div>
+                  <template if:true={hasLeftFields}>
+                    <dl class="dm-dl">
+                      <template for:each={leftCardFields} for:item="f">
+                        <div key={f.key} class="dm-dl-row">
+                          <dt class="dm-dl-lbl">{f.label}</dt>
+                          <dd class="dm-dl-val">{f.value}</dd>
+                        </div>
+                      </template>
+                    </dl>
+                  </template>
+                  <template if:false={hasLeftFields}>
+                    <div class="dm-empty">Aucun champ dans cette colonne (field set ou droits).</div>
+                  </template>
+                </section>
+
+                <section class="dm-card">
+                  <div class="dm-card-h">Informations spécifiques</div>
+                  <template if:true={hasRightFields}>
+                    <dl class="dm-dl">
+                      <template for:each={rightCardFields} for:item="f">
+                        <div key={f.key} class="dm-dl-row">
+                          <dt class="dm-dl-lbl">{f.label}</dt>
+                          <dd class="dm-dl-val">{f.value}</dd>
+                        </div>
+                      </template>
+                    </dl>
+                  </template>
+                  <template if:false={hasRightFields}>
+                    <div class="dm-empty">Aucun champ dans cette colonne (field set ou droits).</div>
+                  </template>
+                </section>
+              </div>
+            </template>
+
+            <template if:true={showDocs}>
+              <div class="dm-card dm-card--full">
+                <div class="dm-card-h">Documents</div>
+                <div class="dm-empty">Aucun document pour le moment.</div>
+              </div>
+            </template>
+
+            <template if:true={showMsg}>
+              <div class="dm-card dm-card--full">
+                <div class="dm-chat">
+                  <c-echange-mission></c-echange-mission>
+                </div>
+              </div>
+            </template>
+
+            <template if:true={showHon}>
+              <div class="dm-card dm-card--full">
+                <div class="dm-card-h">Honoraires</div>
+                <div class="dm-empty">Section en préparation.</div>
+              </div>
+            </template>
+
+            <template if:true={showHist}>
+              <div class="dm-card dm-card--full">
+                <div class="dm-card-h">Historique</div>
+                <div class="dm-empty">Historique indisponible.</div>
+              </div>
+            </template>
+          </div>
+        </section>
+      </template>
+    </template>
+  </div>
+</template>

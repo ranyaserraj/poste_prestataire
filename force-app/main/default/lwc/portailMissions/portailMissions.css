@@ -1,0 +1,34 @@
+/* ===== BADGE BASE (MANQUAIT) ===== */
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+/* ===== BADGES COULEURS ===== */
+.b-enc{background:var(--sf-orange-lt);}
+.b-rap{background:var(--sf-purple-lt);}
+.b-clo{background:var(--sf-green-lt);}
+.b-init{background:var(--sf-blue-lt);}
+
+/* ===== BUTTON FIX ===== */
+.fbtn{
+    padding:5px 12px;
+    border-radius:16px;
+    border:1px solid var(--sf-gray200);
+    cursor:pointer;
+    background:white;
+}
+
+.fbtn.on{
+    background:var(--sf-blue-lt);
+    border-color:var(--sf-blue);
+}
+
+/* ===== TABLE UX ===== */
+tr:hover{
+    background:#f5f5f5;
+    cursor:pointer;
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>isPopulated_Expert__c</fullName>
+    <description>Ce champ est calculé automatiquement et est utilisé pour contrôler le passage du statut du candidat vers « En attente d’approbation »</description>
+    <formula>IF(
+        RecordType.DeveloperName = &quot;Medecin&quot;,
+        AND(
+            NOT(ISBLANK(Name)),
+            NOT(ISBLANK(Phone)),
+            NOT(ISBLANK(email_intmed__c)),
+            NOT(ISBLANK(CodeIBAN__c)),
+            NOT(ISBLANK(CodeINPE__c)),
+            NOT(ISBLANK(TEXT(AssuranceRC__c))),
+            NOT(ISBLANK(BillingStreet)),
+            NOT(ISBLANK(TEXT(TypeMedecin__c))),
+            NOT(ISBLANK(TEXT(SpecialiteMedecin__c))),
+            NOT(ISBLANK(Banque_Principale__c)),
+            NOT(ISBLANK(RIB__c)),
+            NOT(ISBLANK(IdentifiantFiscal__c))
+        ),
+        IF(
+            RecordType.DeveloperName = &quot;Avocat&quot;,
+            AND(
+                NOT(ISBLANK(Name)),
+                NOT(ISBLANK(Phone)),
+                NOT(ISBLANK(IdentifiantFiscal__c)),
+                NOT(ISBLANK(Numero_Barreau__c)),
+                NOT(ISBLANK(TEXT(Barreau_d_appartenance__c))),
+                NOT(ISBLANK(Golden_Id__c)),
+                NOT(ISBLANK(TEXT(Qualite__c))),
+                NOT(ISBLANK(Patente__c)),
+                NOT(ISBLANK(IntituleCourtPrestataire__c))
+            ),
+            IF(
+                RecordType.DeveloperName = &quot;Expert_RD&quot;,
+                AND(
+                    NOT(ISBLANK(Name)),
+                    NOT(ISBLANK(Phone)),
+                    OR(
+                        NOT(ISBLANK(email_intmed__c)),
+                        NOT(ISBLANK(Email__c))
+                    ),
+                    NOT(ISBLANK(TEXT(Qualite__c))),
+                    NOT(ISBLANK(RepresentantLegal__c)),
+                    NOT(ISBLANK(TEXT(AssuranceRC__c))),
+                    NOT(ISBLANK(Patente__c)),
+                    NOT(ISBLANK(Numero_de_registre_de_commerce__c)),
+                    NOT(ISBLANK(TEXT(MethodeDePaiement__c))),
+                    NOT(ISBLANK(RIB__c)),
+                    NOT(ISBLANK(Banque_Principale__c)),
+                    NOT(ISBLANK(IdentifiantFiscal__c))
+                ),
+                false
+            )
+        )
+    )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>isPopulated_Expert</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

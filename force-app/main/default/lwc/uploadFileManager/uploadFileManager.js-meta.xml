@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Upload File Manager</masterLabel>
+    <description>Modern LWC component for managing file uploads based on custom metadata configuration</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <supportedFormFactors>
+                <supportedFormFactor type="Large"/>
+                <supportedFormFactor type="Small"/>
+            </supportedFormFactors>
+            <property name="configuredObjectApiName" type="String"
+                label="Object API Name"
+                description="Optional: Specify the object API name to retrieve metadata. If not provided, it will be derived from the recordId." />
+            <property name="customLabel" type="String"
+                label="Custom Label"
+                description="Optional: Custom label to display in the header. Use this to differentiate between multiple components on the same page." />
+            <property name="filterField" type="String"
+                label="Filter Field API Name"
+                description="API Name of the field on the current record used to filter files (e.g., LegalForm__c)" />
+            <property name="filter" type="String"
+                label="Filter Value"
+                description="Optional: Static value to filter files (e.g. 'directly')" />
+            <property name="recordTypeField" type="String"
+                label="Record Type Field API Name"
+                description="Optional: Deprecated - Logic is now automatic in Apex." />
+            <property name="displayMode" type="String" default="RecordPage"
+                label="Display Mode"
+                description="Choose how to display the component (RecordPage or Modal)"
+                datasource="RecordPage,Modal" />
+            <property name="openByDefault" type="Boolean" default="false"
+                label="Open By Default"
+                description="Should the accordion be open by default?" />
+        </targetConfig>
+        
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="configuredObjectApiName" type="String"
+                label="Object API Name"
+                description="Optional: Specify the object API name to retrieve metadata. If not provided, it will be derived from the recordId." />
+            <property name="customLabel" type="String"
+                label="Custom Label"
+                description="Optional: Custom label to display in the header. Use this to differentiate between multiple components on the same page." />
+            <property name="filterField" type="String"
+                label="Filter Field API Name"
+                description="API Name of the field on the current record used to filter files (e.g., LegalForm__c)" />
+            <property name="filter" type="String"
+                label="Filter Value"
+                description="Optional: Static value to filter files (e.g. 'directly')" />
+            <property name="recordTypeField" type="String"
+                label="Record Type Field API Name"
+                description="Optional: Deprecated - Logic is now automatic in Apex." />
+            <property name="displayMode" type="String" default="RecordPage"
+                label="Display Mode"
+                description="Choose how to display the component (RecordPage or Modal)"
+                datasource="RecordPage,Modal" />
+            <property name="openByDefault" type="Boolean" default="false"
+                label="Open By Default"
+                description="Should the accordion be open by default?" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

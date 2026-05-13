@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Avocat AT Astreinte</label>
+    <protected>false</protected>
+    <values>
+        <field>Label__c</field>
+        <value xsi:type="xsd:string">Avocat AT Astreinte</value>
+    </values>
+    <values>
+        <field>Type_Prestataire__c</field>
+        <value xsi:type="xsd:string">Avocat</value>
+    </values>
+    <values>
+        <field>Branche__c</field>
+        <value xsi:type="xsd:string">AT</value>
+    </values>
+    <values>
+        <field>Nature_De_Mission__c</field>
+        <value xsi:type="xsd:string">Astreinte</value>
+    </values>
+    <values>
+        <field>Actif__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+</CustomMetadata>
+

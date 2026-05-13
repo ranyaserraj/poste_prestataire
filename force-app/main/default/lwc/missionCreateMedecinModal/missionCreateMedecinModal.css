@@ -1,0 +1,310 @@
+.helperBox {
+  border-color: #dddbda;
+}
+
+.modalHeader {
+  /* Navbar-like deep blue gradient */
+  background: linear-gradient(90deg, #0b2d5b 0%, #123f7c 60%, #1a4f8a 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.modalContainer {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.headerTitle {
+  color: #ffffff !important;
+  font-weight: 900 !important;
+}
+
+.modalHeader :global(h2),
+.modalHeader :global(.slds-text-heading_medium),
+.modalHeader :global(.slds-text-heading--medium) {
+  color: #ffffff;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+.modalHeader :global(.slds-modal__close),
+.modalHeader :global(.slds-button_icon-inverse) {
+  color: #ffffff;
+}
+
+.modalHeader :global(.slds-button_icon-inverse:hover) {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+}
+
+.modalBody {
+  padding: 0 !important;
+}
+
+.wizardTop {
+  background: linear-gradient(180deg, #eef6ff 0%, #ffffff 70%);
+  border-bottom: 1px solid rgba(31, 47, 61, 0.08);
+  padding: 14px 18px 10px;
+}
+
+.entryBtnWrap {
+  display: inline-block;
+}
+
+/* Style the lightning-button to match navbar pill */
+.entryBtn {
+  --sds-c-button-brand-radius-border: 999px;
+  --sds-c-button-brand-font-weight: 800;
+  --sds-c-button-brand-text-color: #ffffff;
+  --sds-c-button-brand-color-background: #1a4f8a;
+  --sds-c-button-brand-color-background-hover: #16467b;
+  --sds-c-button-brand-color-background-active: #123f7c;
+  --sds-c-button-brand-shadow: none;
+  --sds-c-button-brand-spacing-inline-start: 18px;
+  --sds-c-button-brand-spacing-inline-end: 18px;
+  --sds-c-button-brand-spacing-block-start: 10px;
+  --sds-c-button-brand-spacing-block-end: 10px;
+}
+
+.hStepper {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 14px;
+  align-items: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hStep {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 14px;
+}
+
+.hCircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 13px;
+}
+
+.hLabel {
+  font-size: 13px;
+  font-weight: 900;
+  color: #1f2f3d;
+}
+
+.hStep.future {
+  opacity: 0.75;
+}
+
+.hStep.future .hCircle {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #52606d;
+}
+
+.hStep.active {
+  background: rgba(255, 255, 255, 0.75);
+  outline: 2px solid rgba(1, 118, 211, 0.16);
+}
+
+.hStep.active .hCircle {
+  background: #ffffff;
+  border: 2px solid #0176d3;
+  color: #0176d3;
+}
+
+.hStep.complete .hCircle {
+  background: #0176d3;
+  border: 2px solid #0176d3;
+  color: #ffffff;
+}
+
+.hCheck {
+  width: 12px;
+  height: 6px;
+  border: solid #ffffff;
+  border-width: 0 0 3px 3px;
+  transform: rotate(-45deg);
+  margin-top: -2px;
+}
+
+.hLine {
+  height: 2px;
+  width: 120px;
+  background: rgba(0, 0, 0, 0.16);
+  border-radius: 2px;
+}
+
+.hLine.complete {
+  background: #0176d3;
+}
+
+.wizardContent {
+  background: #ffffff;
+}
+
+:global(.slds-form-element__label) {
+  color: #1f2f3d;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+:global(.slds-form-element) {
+  margin-bottom: 6px;
+}
+
+/* Field visuals (Styling Hooks for base components) */
+.wizardRightInner {
+  --sds-c-input-radius-border: 10px;
+  --sds-c-input-color-background: #f7fbff;
+  --sds-c-input-color-border: rgba(31, 47, 61, 0.16);
+  --sds-c-input-shadow: none;
+  --sds-c-input-color-border-focus: #0176d3;
+  --sds-c-input-shadow-focus: none;
+
+  --sds-c-textarea-radius-border: 10px;
+  --sds-c-textarea-color-background: #f7fbff;
+  --sds-c-textarea-color-border: rgba(31, 47, 61, 0.16);
+  --sds-c-textarea-shadow: none;
+  --sds-c-textarea-color-border-focus: #0176d3;
+  --sds-c-textarea-shadow-focus: none;
+}
+
+.wizardRightInner :global(.slds-input),
+.wizardRightInner :global(.slds-combobox__input),
+.wizardRightInner :global(.slds-textarea) {
+  transition: box-shadow 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.wizardRightInner :global(.slds-input:hover),
+.wizardRightInner :global(.slds-combobox__input:hover),
+.wizardRightInner :global(.slds-textarea:hover) {
+  border-color: rgba(1, 118, 211, 0.35);
+}
+
+.fieldError {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #ba0517;
+}
+
+.fieldWithIcon {
+  position: relative;
+}
+
+.successIcon {
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #2e844a;
+}
+
+.successIcon::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 3px;
+  width: 6px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.fieldErrorState :global(.slds-input),
+.fieldErrorState :global(.slds-combobox__input) {
+  border-color: #ba0517 !important;
+  box-shadow: 0 0 0 1px #ba0517 inset !important;
+}
+
+.fieldSuccessState :global(.slds-input),
+.fieldSuccessState :global(.slds-combobox__input) {
+  border-color: #2e844a !important;
+  box-shadow: 0 0 0 1px #2e844a inset !important;
+}
+
+.textBtn {
+  background: transparent;
+  border: 0;
+  color: #706e6b;
+  font-weight: 600;
+  padding: 0 8px;
+}
+
+.textBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnPrimary {
+  background: linear-gradient(90deg, #0b2d5b 0%, #123f7c 65%, #1a4f8a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 800;
+  box-shadow: none;
+  transition: filter 120ms ease;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  filter: brightness(1.03);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnOutline {
+  background: #ffffff;
+  border: 1px solid rgba(11, 45, 91, 0.22);
+  color: #0b2d5b;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 800;
+  box-shadow: none;
+  transition: none;
+}
+
+.btnOutline:hover:not(:disabled) {
+}
+
+.btnOutline:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnAddPerson :global(button) {
+  border-color: #0176d3 !important;
+  color: #0176d3 !important;
+}
+
+.personsList {
+  border-radius: 8px;
+}
+
+.personsItem {
+  background: #ffffff;
+}
+
+.linkBtn {
+  background: transparent;
+  border: 0;
+  color: #0176d3;
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+

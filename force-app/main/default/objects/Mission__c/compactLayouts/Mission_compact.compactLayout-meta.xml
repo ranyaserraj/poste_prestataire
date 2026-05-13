@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mission_compact</fullName>
+    <fields>Prestataire__c</fields>
+    <fields>Branche__c</fields>
+    <fields>Nature__c</fields>
+    <fields>Date_cloture__c</fields>
+    <fields>Date_de_nomination__c</fields>
+    <label>Mission_compact</label>
+</CompactLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Detail mission</masterLabel>
+    <description>Fiche mission generique (field sets). Donnees via MissionMedecinController.getMissionDetails.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="missionId" type="String" label="ID Mission" description="Id enregistrement Mission__c"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

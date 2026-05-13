@@ -1,0 +1,90 @@
+<template>
+    <div class="component-wrapper">
+        <lightning-card>
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </template>
+
+            <!-- Component Content -->
+            <template if:true={componentReady}>
+                <!-- Accordion Header (conditional) -->
+                <template if:true={showAccordion}>
+                    <div class={accordionClass} onclick={handleToggleAccordion}>
+                        <div class="header-content">
+                            <span class="header-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                                    <path fill="#ffffff" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                                </svg>
+                            </span>
+                            <span class="header-title">{headerTitle}</span>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Non-Accordion Header (when accordion is hidden) -->
+                <template if:false={showAccordion}>
+                    <div class="static-header">
+                        <div class="header-content">
+                            <span class="header-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                                    <path fill="#ffffff" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                                </svg>
+                            </span>
+                            <span class="header-title">{headerTitle}</span>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Files Panel -->
+                <div class={panelClass}>
+                    <div class="files-container">
+                        <template if:true={hasFiles}>
+                            <lightning-layout multiple-rows>
+                                <template for:each={files} for:item="file">
+                                    <lightning-layout-item 
+                                        key={file.uniqueId}
+                                        flexibility="auto" 
+                                        padding="around-small" 
+                                        size="12" 
+                                        large-device-size="4" 
+                                        medium-device-size="6" 
+                                        small-device-size="12">
+                                        <c-upload-file-item 
+                                            record-id={effectiveRecordId}
+                                            s-object-name={sObjectName}
+                                            file={file}
+                                            onuploadfinished={handleUploadFinished}
+                                            ondeleteall={handleDeleteAll}
+                                            onpreviewall={handlePreviewAll}>
+                                        </c-upload-file-item>
+                                    </lightning-layout-item>
+                                </template>
+                            </lightning-layout>
+                        </template>
+
+                        <template if:true={hasNoFiles}>
+                            <div class="empty-state">
+                                <lightning-icon 
+                                    icon-name="utility:file" 
+                                    size="medium" 
+                                    class="empty-icon">
+                                </lightning-icon>
+                                <p class="empty-text">Aucun fichier disponible</p>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Delete Confirmation Modal -->
+            <c-delete-confirm-modal
+                is-open={showDeleteModal}
+                title={deleteModalTitle}
+                message={deleteModalMessage}
+                onconfirm={handleModalConfirm}
+                oncancel={handleModalCancel}>
+            </c-delete-confirm-modal>
+        </lightning-card>
+    </div>
+</template>

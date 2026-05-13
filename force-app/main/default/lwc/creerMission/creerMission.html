@@ -1,0 +1,27 @@
+<template>
+    <div class="container">
+        <!-- Bouton -->
+        <template if:false={showModal}>
+            <button class="btn-creer" onclick={handleClick}>+ Créer une mission</button>
+        </template>
+
+        <!-- MODAL -->
+        <template if:true={showModal}>
+            <div class="modal-backdrop" onclick={handleCloseModal}></div>
+            
+            <div class="modal-container modal-tech">
+                <div class="modal-header">
+                    <h2>Créer une mission Avocat</h2>
+                    <button class="modal-close" onclick={handleCloseModal}>✕</button>
+                </div>
+
+                <div class="form-container">
+                    <c-auto-missionnement-avocat
+                        onannuler={handleAnnuler}
+                        onsuccess={handleSuccess}>
+                    </c-auto-missionnement-avocat>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

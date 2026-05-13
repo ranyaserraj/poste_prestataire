@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Juridiction__c</fullName>
+    <label>Juridiction</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1</fullName>
+                <default>false</default>
+                <label>Juridiction Etrangère</label>
+            </value>
+            <value>
+                <fullName>100</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE RABAT</label>
+            </value>
+            <value>
+                <fullName>101</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE KENITRA</label>
+            </value>
+            <value>
+                <fullName>102</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE CASABLANCA</label>
+            </value>
+            <value>
+                <fullName>103</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL D&apos;EL JADIDA</label>
+            </value>
+            <value>
+                <fullName>104</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE FES</label>
+            </value>
+            <value>
+                <fullName>105</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE TAZA</label>
+            </value>
+            <value>
+                <fullName>106</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE MARRAKECH</label>
+            </value>
+            <value>
+                <fullName>107</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE SAFI</label>
+            </value>
+            <value>
+                <fullName>108</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE MEKNES</label>
+            </value>
+            <value>
+                <fullName>109</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL D&apos;ERRACHIDIA</label>
+            </value>
+            <value>
+                <fullName>110</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL D&apos;AGADIR</label>
+            </value>
+            <value>
+                <fullName>111</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE LAÂYOUNE</label>
+            </value>
+            <value>
+                <fullName>112</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE TANGER</label>
+            </value>
+            <value>
+                <fullName>113</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE TETOUAN</label>
+            </value>
+            <value>
+                <fullName>114</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE SETTAT</label>
+            </value>
+            <value>
+                <fullName>115</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE BENI MELLAL</label>
+            </value>
+            <value>
+                <fullName>116</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE KHOURIBGA</label>
+            </value>
+            <value>
+                <fullName>117</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL D&apos;OUJDA</label>
+            </value>
+            <value>
+                <fullName>118</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE NADOR</label>
+            </value>
+            <value>
+                <fullName>119</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL D&apos;AL HOCEIMA</label>
+            </value>
+            <value>
+                <fullName>120</fullName>
+                <default>false</default>
+                <label>TPI DE RABAT</label>
+            </value>
+            <value>
+                <fullName>121</fullName>
+                <default>false</default>
+                <label>TPI DE SALE</label>
+            </value>
+            <value>
+                <fullName>122</fullName>
+                <default>false</default>
+                <label>TPI DE KHEMISSET</label>
+            </value>
+            <value>
+                <fullName>123</fullName>
+                <default>false</default>
+                <label>TPI DE ROMMANI</label>
+            </value>
+            <value>
+                <fullName>124</fullName>
+                <default>false</default>
+                <label>TPI DE KENITRA</label>
+            </value>
+            <value>
+                <fullName>125</fullName>
+                <default>false</default>
+                <label>TPI DE SIDI KACEM</label>
+            </value>
+            <value>
+                <fullName>126</fullName>
+                <default>false</default>
+                <label>TPI DE SIDI SLIMANE</label>
+            </value>
+            <value>
+                <fullName>127</fullName>
+                <default>false</default>
+                <label>TPI DE SOUK ARBAA EL GHARB</label>
+            </value>
+            <value>
+                <fullName>128</fullName>
+                <default>false</default>
+                <label>TPI DE OUEZZANE</label>
+            </value>
+            <value>
+                <fullName>129</fullName>
+                <default>false</default>
+                <label>TPI DE CASABLANCA ANFA</label>
+            </value>
+            <value>
+                <fullName>130</fullName>
+                <default>false</default>
+                <label>TPI D&apos;ALFIDA DERB SOLTAN</label>
+            </value>
+            <value>
+                <fullName>131</fullName>
+                <default>false</default>
+                <label>TPI AIN SEBAA HAY MOHAMMADI</label>
+            </value>
+            <value>
+                <fullName>132</fullName>
+                <default>false</default>
+                <label>TPI HAY HASSANI AIN CHOCK</label>
+            </value>
+            <value>
+                <fullName>133</fullName>
+                <default>false</default>
+                <label>TPI BEN M&apos;SICK SIDI OTHMANE</label>
+            </value>
+            <value>
+                <fullName>134</fullName>
+                <default>false</default>
+                <label>TPI DE MOHAMMADIA ZENATA</label>
+            </value>
+            <value>
+                <fullName>135</fullName>
+                <default>false</default>
+                <label>TPI D&apos;ELJADIDA</label>
+            </value>
+            <value>
+                <fullName>136</fullName>
+                <default>false</default>
+                <label>TPI TAOUNATE</label>
+            </value>
+            <value>
+                <fullName>137</fullName>
+                <default>false</default>
+                <label>TPI DE SEFROU</label>
+            </value>
+            <value>
+                <fullName>138</fullName>
+                <default>false</default>
+                <label>TPI DE BOULMANE</label>
+            </value>
+            <value>
+                <fullName>139</fullName>
+                <default>false</default>
+                <label>TPI DE TAZA</label>
+            </value>
+            <value>
+                <fullName>140</fullName>
+                <default>false</default>
+                <label>TPI DE GUERCIF</label>
+            </value>
+            <value>
+                <fullName>141</fullName>
+                <default>false</default>
+                <label>TPI D&apos;EL KELÂA DES SRAGHNA</label>
+            </value>
+            <value>
+                <fullName>142</fullName>
+                <default>false</default>
+                <label>TPI DE BENGUERIR</label>
+            </value>
+            <value>
+                <fullName>143</fullName>
+                <default>false</default>
+                <label>TPI DE OUARZAZATE</label>
+            </value>
+            <value>
+                <fullName>144</fullName>
+                <default>false</default>
+                <label>TPI DE ZAGORA</label>
+            </value>
+            <value>
+                <fullName>145</fullName>
+                <default>false</default>
+                <label>TPI DE SAFI</label>
+            </value>
+            <value>
+                <fullName>146</fullName>
+                <default>false</default>
+                <label>TPI DE MEKNES</label>
+            </value>
+            <value>
+                <fullName>147</fullName>
+                <default>false</default>
+                <label>TPI DE KHENIFRA</label>
+            </value>
+            <value>
+                <fullName>148</fullName>
+                <default>false</default>
+                <label>TPI DE MIDELT</label>
+            </value>
+            <value>
+                <fullName>149</fullName>
+                <default>false</default>
+                <label>TPI D&apos;ERRACHIDIA</label>
+            </value>
+            <value>
+                <fullName>150</fullName>
+                <default>false</default>
+                <label>TPI DE TAROUDANNT</label>
+            </value>
+            <value>
+                <fullName>151</fullName>
+                <default>false</default>
+                <label>TPI DE TAN TAN</label>
+            </value>
+            <value>
+                <fullName>152</fullName>
+                <default>false</default>
+                <label>TPI DE GUELMIM</label>
+            </value>
+            <value>
+                <fullName>153</fullName>
+                <default>false</default>
+                <label>TPI DE TIZNIT</label>
+            </value>
+            <value>
+                <fullName>154</fullName>
+                <default>false</default>
+                <label>TPI DE TATA</label>
+            </value>
+            <value>
+                <fullName>155</fullName>
+                <default>false</default>
+                <label>TPI DE TETOUAN</label>
+            </value>
+            <value>
+                <fullName>156</fullName>
+                <default>false</default>
+                <label>TPI DE CHEFCHAOUEN</label>
+            </value>
+            <value>
+                <fullName>157</fullName>
+                <default>false</default>
+                <label>TPI DE SETTAT</label>
+            </value>
+            <value>
+                <fullName>158</fullName>
+                <default>false</default>
+                <label>TPI D&apos;AZILAL</label>
+            </value>
+            <value>
+                <fullName>159</fullName>
+                <default>false</default>
+                <label>TPI DE KHOURIBGA</label>
+            </value>
+            <value>
+                <fullName>160</fullName>
+                <default>false</default>
+                <label>TPI D&apos;OUED ZEM</label>
+            </value>
+            <value>
+                <fullName>161</fullName>
+                <default>false</default>
+                <label>TPI D&apos;OUJDA</label>
+            </value>
+            <value>
+                <fullName>162</fullName>
+                <default>false</default>
+                <label>TPI D&apos;ALHOCEIMA</label>
+            </value>
+            <value>
+                <fullName>163</fullName>
+                <default>false</default>
+                <label>TPI DE SIDI BENNOUR</label>
+            </value>
+            <value>
+                <fullName>164</fullName>
+                <default>false</default>
+                <label>TPI DE FES</label>
+            </value>
+            <value>
+                <fullName>165</fullName>
+                <default>false</default>
+                <label>TPI DE MARRAKECH</label>
+            </value>
+            <value>
+                <fullName>166</fullName>
+                <default>false</default>
+                <label>TPI DE IMI N TANOUTE</label>
+            </value>
+            <value>
+                <fullName>167</fullName>
+                <default>false</default>
+                <label>TPI DE YOUSSOUFIA</label>
+            </value>
+            <value>
+                <fullName>168</fullName>
+                <default>false</default>
+                <label>TPI D&apos;ESSAOUIRA</label>
+            </value>
+            <value>
+                <fullName>169</fullName>
+                <default>false</default>
+                <label>TPI D&apos;AGADIR</label>
+            </value>
+            <value>
+                <fullName>170</fullName>
+                <default>false</default>
+                <label>TPI D&apos;INEZGANE</label>
+            </value>
+            <value>
+                <fullName>171</fullName>
+                <default>false</default>
+                <label>TPI DE LAÂYOUNE</label>
+            </value>
+            <value>
+                <fullName>172</fullName>
+                <default>false</default>
+                <label>TPI D&apos;ES SEMARA</label>
+            </value>
+            <value>
+                <fullName>174</fullName>
+                <default>false</default>
+                <label>TPI DE TANGER</label>
+            </value>
+            <value>
+                <fullName>175</fullName>
+                <default>false</default>
+                <label>TPI DE LARACHE</label>
+            </value>
+            <value>
+                <fullName>176</fullName>
+                <default>false</default>
+                <label>TPI DE KSAR EL KEBIR</label>
+            </value>
+            <value>
+                <fullName>177</fullName>
+                <default>false</default>
+                <label>TPI DE BENAHMED</label>
+            </value>
+            <value>
+                <fullName>178</fullName>
+                <default>false</default>
+                <label>TPI DE BENI MELLAL</label>
+            </value>
+            <value>
+                <fullName>180</fullName>
+                <default>false</default>
+                <label>TPI DE FIGUIG</label>
+            </value>
+            <value>
+                <fullName>181</fullName>
+                <default>false</default>
+                <label>TPI DE BERKANE</label>
+            </value>
+            <value>
+                <fullName>182</fullName>
+                <default>false</default>
+                <label>TPI DE NADOR</label>
+            </value>
+            <value>
+                <fullName>183</fullName>
+                <default>false</default>
+                <label>COUR SUPREME DE RABAT</label>
+            </value>
+            <value>
+                <fullName>184</fullName>
+                <default>false</default>
+                <label>TPI DE M&apos;RIRT</label>
+            </value>
+            <value>
+                <fullName>185</fullName>
+                <default>false</default>
+                <label>TPI DE BERRECHID</label>
+            </value>
+            <value>
+                <fullName>186</fullName>
+                <default>false</default>
+                <label>TPI DE BENSLIMANE</label>
+            </value>
+            <value>
+                <fullName>187</fullName>
+                <default>false</default>
+                <label>TPI DE BOUARFA</label>
+            </value>
+            <value>
+                <fullName>188</fullName>
+                <default>false</default>
+                <label>TPI DE MISSOUR</label>
+            </value>
+            <value>
+                <fullName>189</fullName>
+                <default>false</default>
+                <label>TPI DE OUED EDDAHAB</label>
+            </value>
+            <value>
+                <fullName>190</fullName>
+                <default>false</default>
+                <label>TPI DE DAKHLA</label>
+            </value>
+            <value>
+                <fullName>191</fullName>
+                <default>false</default>
+                <label>COUR D&apos;APPEL DE OUARZAZATE</label>
+            </value>
+            <value>
+                <fullName>192</fullName>
+                <default>false</default>
+                <label>TPI DE TEMARA</label>
+            </value>
+            <value>
+                <fullName>193</fullName>
+                <default>false</default>
+                <label>TPI CASABLANCA</label>
+            </value>
+            <value>
+                <fullName>194</fullName>
+                <default>false</default>
+                <label>TPI BOUJAAD</label>
+            </value>
+            <value>
+                <fullName>195</fullName>
+                <default>false</default>
+                <label>TPI ASILAH</label>
+            </value>
+            <value>
+                <fullName>196</fullName>
+                <default>false</default>
+                <label>TPI FQIH BENSALEH</label>
+            </value>
+            <value>
+                <fullName>197</fullName>
+                <default>false</default>
+                <label>TPI KASBA TADLA</label>
+            </value>
+            <value>
+                <fullName>198</fullName>
+                <default>false</default>
+                <label>TPI ASSA ZAG</label>
+            </value>
+            <value>
+                <fullName>199</fullName>
+                <default>false</default>
+                <label>TRIBUNAL ADMINISTRATIF RABAT</label>
+            </value>
+            <value>
+                <fullName>200</fullName>
+                <default>false</default>
+                <label>TRIBUNAL COMMERCE CASABLANCA</label>
+            </value>
+            <value>
+                <fullName>201</fullName>
+                <default>false</default>
+                <label>TRIBUNAL COMMERCE TANGER</label>
+            </value>
+            <value>
+                <fullName>202</fullName>
+                <default>false</default>
+                <label>TRIBUNAL COMMERCE MARRAKECH</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

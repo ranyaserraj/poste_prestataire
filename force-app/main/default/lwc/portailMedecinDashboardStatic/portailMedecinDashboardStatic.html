@@ -1,0 +1,171 @@
+<template>
+    <div class="app">
+        <!-- Top nav -->
+        <header class="topbar slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+            <div class="slds-grid slds-grid_vertical-align-center slds-gutters_small">
+                <div class="brand slds-grid slds-grid_vertical-align-center">
+                    <span class="brandDot" aria-hidden="true"></span>
+                    <span class="brandText">Portail Prestataires</span>
+                </div>
+                <nav class="topnav slds-grid slds-gutters_small" aria-label="Navigation principale">
+                    <button class="topLink" type="button">Accueil</button>
+                    <button class="topLink" type="button">Mes missions</button>
+                    <button class="topLink" type="button">Mes honoraires</button>
+                    <button class="topLink" type="button">Documents</button>
+                    <button class="topLink" type="button">Messagerie</button>
+                    <button class="topLink" type="button">Instructions</button>
+                </nav>
+            </div>
+            <div class="slds-grid slds-grid_vertical-align-center slds-gutters_x-small">
+                <lightning-button variant="neutral" label="Se déconnecter" onclick={noop}></lightning-button>
+                <div class="avatar" title="Utilisateur">SR</div>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Left menu -->
+            <aside class="sidebar" aria-label="Menu latéral">
+                <div class="sideSectionTitle">NAVIGATION</div>
+                <button class={navClasses.dashboard} type="button" data-id="dashboard" onclick={setNav}>Tableau de bord</button>
+                <button class={navClasses.missions} type="button" data-id="missions" onclick={setNav}>Mes missions</button>
+                <button class={navClasses.honoraires} type="button" data-id="honoraires" onclick={setNav}>Mes honoraires</button>
+                <button class={navClasses.documents} type="button" data-id="documents" onclick={setNav}>Documents</button>
+                <button class={navClasses.messagerie} type="button" data-id="messagerie" onclick={setNav}>Messagerie</button>
+                <button class={navClasses.instructions} type="button" data-id="instructions" onclick={setNav}>Instructions</button>
+
+                <div class="sideSectionTitle sideSectionTitle--spaced">MON COMPTE</div>
+                <button class="sideItem" type="button">Mon profil</button>
+            </aside>
+
+            <!-- Main -->
+            <main class="main" aria-label="Dashboard">
+                <div class="mainHeader slds-grid slds-grid_align-spread slds-grid_vertical-align-start slds-wrap">
+                    <div class="hello">
+                        <div class="helloTitle">Bonjour, Maître Rizki</div>
+                        <div class="helloSub">Vendredi 15 avril 2026 · Voici un aperçu de votre activité</div>
+                    </div>
+                    <lightning-button variant="brand" label="Nouvelle mission" onclick={noop}></lightning-button>
+                </div>
+
+                <!-- KPI cards -->
+                <section class="kpis" aria-label="Indicateurs">
+                    <article class="kpi kpi--blue">
+                        <div class="kpiTitle">Missions actives</div>
+                        <div class="kpiValue">3</div>
+                        <div class="kpiSub">+2 nouvelles ce mois</div>
+                    </article>
+                    <article class="kpi kpi--orange">
+                        <div class="kpiTitle">Honoraires en attente</div>
+                        <div class="kpiValue">1</div>
+                        <div class="kpiSub">0 validation en cours</div>
+                    </article>
+                    <article class="kpi kpi--green">
+                        <div class="kpiTitle">Honoraires payés</div>
+                        <div class="kpiValue">4&nbsp;800&nbsp;€</div>
+                        <div class="kpiSub">Depuis jan. 2026</div>
+                    </article>
+                    <article class="kpi kpi--purple">
+                        <div class="kpiTitle">Documents déposés</div>
+                        <div class="kpiValue">12</div>
+                        <div class="kpiSub">Toutes missions confondues</div>
+                    </article>
+                </section>
+
+                <section class="grid2" aria-label="Contenu principal">
+                    <!-- Recent missions -->
+                    <article class="panel">
+                        <div class="panelHeader slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                            <div class="panelTitle">Missions récentes</div>
+                            <button class="linkBtn" type="button">Voir tout</button>
+                        </div>
+                        <div class="tableWrap" role="region" aria-label="Missions récentes">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col"><div class="slds-truncate">N° Mission</div></th>
+                                        <th scope="col"><div class="slds-truncate">Branche</div></th>
+                                        <th scope="col"><div class="slds-truncate">Statut</div></th>
+                                        <th scope="col"><div class="slds-truncate">Date</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><div class="slds-truncate">MSN 2026-00004</div></td>
+                                        <td><div class="slds-truncate">AT</div></td>
+                                        <td><span class="pill pill--orange">En cours</span></td>
+                                        <td><div class="slds-truncate">08/04/2026</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="slds-truncate">MSN 2026-00003</div></td>
+                                        <td><div class="slds-truncate">RC</div></td>
+                                        <td><span class="pill pill--purple">Rapport reçu</span></td>
+                                        <td><div class="slds-truncate">01/04/2026</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="slds-truncate">MSN 2026-00001</div></td>
+                                        <td><div class="slds-truncate">AT</div></td>
+                                        <td><span class="pill pill--blue">Initiée</span></td>
+                                        <td><div class="slds-truncate">22/03/2026</div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <!-- Recent activity -->
+                    <article class="panel">
+                        <div class="panelHeader">
+                            <div class="panelTitle">Activité récente</div>
+                        </div>
+                        <ul class="activity" aria-label="Activité récente">
+                            <li class="activityItem">
+                                <span class="activityIcon activityIcon--blue" aria-hidden="true"></span>
+                                <div class="activityBody">
+                                    <div class="activityTitle">Instruction reçue sur MSN-2026-00004</div>
+                                    <div class="activitySub">Il y a 2h</div>
+                                </div>
+                            </li>
+                            <li class="activityItem">
+                                <span class="activityIcon activityIcon--green" aria-hidden="true"></span>
+                                <div class="activityBody">
+                                    <div class="activityTitle">Honoraire validé — MSN-2026-00003</div>
+                                    <div class="activitySub">Montant : 1 200 € · Hier</div>
+                                </div>
+                            </li>
+                            <li class="activityItem">
+                                <span class="activityIcon activityIcon--orange" aria-hidden="true"></span>
+                                <div class="activityBody">
+                                    <div class="activityTitle">Statut mis à jour — MSN-2026-00001</div>
+                                    <div class="activitySub">Initiée → En cours · 22/03</div>
+                                </div>
+                            </li>
+                            <li class="activityItem">
+                                <span class="activityIcon activityIcon--purple" aria-hidden="true"></span>
+                                <div class="activityBody">
+                                    <div class="activityTitle">Message du gestionnaire</div>
+                                    <div class="activitySub">MSN 2026-00001 · Pièces complémentaires</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </article>
+                </section>
+
+                <section class="panel panel--full" aria-label="Instructions non accusées">
+                    <div class="panelHeader">
+                        <div class="panelTitle">Instructions non accusées réception</div>
+                    </div>
+                    <div class="instruction">
+                        <div class="instructionMain">
+                            <div class="instructionTitle">Consigne de plaidorie — Défense pénale AT</div>
+                            <div class="instructionSub">Mission MSN 2026-00004 · Envoyée le 15/04/2026</div>
+                        </div>
+                        <div class="instructionActions">
+                            <lightning-button variant="brand" label="Accuser réception" onclick={noop}></lightning-button>
+                            <lightning-button variant="neutral" label="Voir le détail" onclick={noop}></lightning-button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</template>

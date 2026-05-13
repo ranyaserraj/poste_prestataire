@@ -1,0 +1,92 @@
+<template>
+    <!-- HEADER -->
+    <div class="ph">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+            <div>
+                <div class="ph-title">Mes missions</div>
+                <div class="ph-sub">Cliquez sur une mission pour accéder aux détails</div>
+            </div>
+            <button class="btn btn-p" onclick={handleNew} style="margin-top:2px;">
+                + Nouvelle mission
+            </button>
+        </div>
+    </div>
+
+    <!-- FILTER BAR DYNAMIQUE -->
+    <div class="filter-bar">
+        <span class="filter-lbl">Filtrer :</span>
+
+        <!-- Statut — valeurs chargées depuis Apex -->
+        <select class="fbtn" onchange={handleFilterStatut}>
+            <template for:each={statutOptions} for:item="opt">
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+            </template>
+        </select>
+
+        <div style="flex:1"></div>
+
+        <!-- Branche — valeurs chargées depuis Apex -->
+        <select class="fbtn" onchange={handleFilterBranche}>
+            <template for:each={brancheOptions} for:item="opt">
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+            </template>
+        </select>
+    </div>
+
+    <!-- TABLE -->
+    <div class="tbl-wrap">
+
+        <div class="tbl-head">
+            <div class="tbl-title">Liste des missions</div>
+            <input class="tbl-search" placeholder="Rechercher..." oninput={handleSearch}/>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>N° Mission</th>
+                    <th>Branche</th>
+                    <th>Statut</th>
+                    <th>Date nomination</th>
+                    <th>Documents</th>
+                    <th>Messagerie</th>
+                    <th>Honoraires</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <template if:true={hasMissions}>
+                    <template for:each={missionsAffichees} for:item="m">
+                        <tr key={m.Id} data-id={m.Id} onclick={handleRowClick} style="cursor:pointer;">
+                            <td class="td-link">{m.Numero_mission}</td>
+                            <td>
+                                <span class={m.brancheBadgeClass}>{m.Branche}</span>
+                            </td>
+                            <td>
+                                <span class={m.statusBadgeClass}>
+                                    <span class="bdot"></span>
+                                    {m.StatutLabel}
+                                </span>
+                            </td>
+                            <td>{m.dateNominationFmt}</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                        </tr>
+                    </template>
+                </template>
+
+                <template if:false={hasMissions}>
+                    <tr>
+                        <td colspan="7" class="empty-row">Aucune mission</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <div class="pagi">
+            <span class="pagi-info">{pagiInfo}</span>
+        </div>
+    </div>
+</template>
+

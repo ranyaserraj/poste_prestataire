@@ -1,0 +1,111 @@
+<template>
+    <template if:true={selectedMissionId}>
+        <div class="ph">
+            <button class="btn-retour" onclick={handleRetour}>← Retour aux missions</button>
+        </div>
+        <c-detail-mission mission-id={selectedMissionId}></c-detail-mission>
+    </template>
+
+    <template if:false={selectedMissionId}>
+        <!-- HEADER -->
+        <div class="ph">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+                <div>
+                    <div class="ph-title">Mes missions</div>
+                </div>
+                <div style="position:relative;">
+                    <slot name="newMissionButtons"></slot>
+                </div>
+            </div>
+        </div>
+
+        <!-- FILTER BAR -->
+        <div class="filter-bar">
+            <span class="filter-lbl">Filtrer</span>
+            <select class="fbtn" onchange={handleFilterStatut}>
+                <template for:each={statutOptions} for:item="opt">
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                </template>
+            </select>
+            <div style="flex:1"></div>
+            <select class="fbtn" onchange={handleFilterBranche}>
+                <template for:each={brancheOptions} for:item="opt">
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                </template>
+            </select>
+        </div>
+
+        <!-- TABLE -->
+        <div class="tbl-wrap">
+            <div class="tbl-head">
+                <div class="tbl-title">Liste des missions</div>
+                <input class="tbl-search" placeholder="Rechercher…" oninput={handleSearch}/>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <template for:each={displayColumns} for:item="col">
+                            <th key={col.apiName}>{col.label}</th>
+                        </template>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <template if:true={hasMissions}>
+                        <template for:each={missionsAffichees} for:item="m">
+                            <tr key={m.Id} data-id={m.Id} onclick={handleRowClick} style="cursor:pointer;">
+                                <template for:each={displayColumns} for:item="col">
+                                    <td key={col.apiName} data-field={col.apiName}>
+                                        <template if:true={col.isNumeroMission}>
+                                            <span class="td-link">{m.Numero_mission}</span>
+                                        </template>
+                                        <template if:true={col.isBranche}>
+                                            <span>{m.Branche}</span>
+                                        </template>
+                                        <template if:true={col.isStatut}>
+                                            <span class="badge" style={m.statutStyle}>
+                                                <span class="bdot" style={m.bdotStyle}></span>
+                                                {m.StatutLabel}
+                                            </span>
+                                        </template>
+                                        <template if:true={col.isDateNomination}>
+                                            {m.dateNominationFmt}
+                                        </template>
+                                        <template if:true={col.isSinistre}>
+                                            {m.Numero_sinistre}
+                                        </template>
+                                        <template if:true={col.isDossier}>
+                                            {m.Reference_dossier}
+                                        </template>
+                                        <template if:true={col.isDocuments}>
+                                            —
+                                        </template>
+                                        <template if:true={col.isMessagerie}>
+                                            —
+                                        </template>
+                                        <template if:true={col.isHonoraires}>
+                                            —
+                                        </template>
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                    </template>
+
+                    <template if:false={hasMissions}>
+                        <tr>
+                            <td colspan="10" class="empty-row">
+                                Aucune mission trouvée
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+
+            <div class="pagi">
+                <span class="pagi-info">{missionsCount} sur {totalCount} missions</span>
+            </div>
+        </div>
+    </template>
+</template>

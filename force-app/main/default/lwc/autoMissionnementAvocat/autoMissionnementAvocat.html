@@ -1,0 +1,473 @@
+<template>
+    <div class="form-container">
+
+        <!-- HEADER -->
+        <div class="form-header">
+            <div class="form-title">Créer une mission — Auto-missionnement</div>
+            <div class="form-steps">
+                <span class={stepClass1}>Étape 1 — Type de mission</span>
+                <span class="step-sep">›</span>
+                <span class={stepClass2}>Étape 2 — Mission / Sinistre</span>
+                <span class="step-sep">›</span>
+                <span class={stepClass3}>Étape 3 — Personnes impliquées</span>
+            </div>
+        </div>
+
+        <!-- ═══ ÉTAPE 1 — Branche + Nature ═══ -->
+        <template if:true={isStep1}>
+            <div class="form-body">
+
+                <div class="section">
+                    <div class="section-title">Type de mission</div>
+                    <div class="grid2">
+
+                        <!-- Branche -->
+                        <div class="field">
+                            <label class="field-label">
+                                Branche <span class="required">*</span>
+                            </label>
+                            <select class="field-input"
+                                    value={formData.branche}
+                                    onchange={handleBrancheChange}>
+                                <option value="">— Sélectionner —</option>
+                                <template for:each={brancheOptions} for:item="opt">
+                                    <option key={opt} value={opt}>{opt}</option>
+                                </template>
+                            </select>
+                            <template if:true={errors.branche}>
+                                <span class="field-error">{errors.branche}</span>
+                            </template>
+                        </div>
+
+                        <!-- Nature de mission -->
+                        <div class="field">
+                            <label class="field-label">
+                                Nature de mission <span class="required">*</span>
+                            </label>
+                            <select class="field-input"
+                                    value={formData.natureMission}
+                                    onchange={handleNatureChange}
+                                    disabled={isNatureDisabled}>
+                                <option value="">— Sélectionner —</option>
+                                <template for:each={natureOptions} for:item="opt">
+                                    <option key={opt} value={opt}>{opt}</option>
+                                </template>
+                            </select>
+                            <template if:true={errors.natureMission}>
+                                <span class="field-error">{errors.natureMission}</span>
+                            </template>
+                        </div>
+
+                        <!-- Type de sinistre — uniquement AT -->
+                        <template if:true={showTypeSinistre}>
+                            <div class="field">
+                                <label class="field-label">
+                                    Type de sinistre <span class="required">*</span>
+                                </label>
+                                <select class="field-input"
+                                        value={formData.typeSinistre}
+                                        onchange={handleFieldChange}
+                                        data-field="typeSinistre">
+                                    <option value="">— Sélectionner —</option>
+<template for:each={typeSinistreOptions} for:item="opt">
+    <option key={opt} value={opt}>{opt}</option>
+</template>
+                                </select>
+                                <template if:true={errors.typeSinistre}>
+                                    <span class="field-error">{errors.typeSinistre}</span>
+                                </template>
+                            </div>
+                        </template>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FOOTER étape 1 -->
+            <div class="form-footer">
+                <button class="btn-annuler" onclick={handleAnnuler}>Annuler</button>
+                <button class="btn-suivant" onclick={handleSuivant}>
+                    Suivant ›
+                </button>
+            </div>
+        </template>
+
+        <!-- ═══ ÉTAPE 2 — Mission / Sinistre ═══ -->
+        <template if:true={isStep2}>
+            <div class="form-body">
+
+                <!-- SECTION : Identification mission -->
+                <div class="section">
+                    <div class="section-title">Identification de la mission</div>
+                    <div class="grid2">
+
+                        <div class="field">
+                            <label class="field-label">Numéro de mission</label>
+                            <div class="field-readonly">Généré automatiquement</div>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">Type de mission</label>
+                            <div class="field-readonly">Auto-missionnement</div>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">Type de prestation</label>
+                            <div class="field-readonly">Prémission</div>
+                        </div>
+
+                        <!-- Phase : toujours 1ère instance -->
+                        <div class="field">
+                            <label class="field-label">Phase</label>
+                            <div class="field-readonly">1ère instance</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECTION : Informations contrat / sinistre -->
+                <div class="section">
+                    <div class="section-title">Informations contrat / sinistre</div>
+                    <div class="grid2">
+
+                        <div class="field">
+                            <label class="field-label">Numéro de police</label>
+                            <input  type="text"
+                                    class="field-input"
+                                    placeholder="Optionnel"
+                                    value={formData.numeroPolice}
+                                    onchange={handleFieldChange}
+                                    data-field="numeroPolice"/>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">Numéro de sinistre</label>
+                            <input  type="text"
+                                    class="field-input"
+                                    placeholder="Optionnel"
+                                    value={formData.numeroSinistre}
+                                    onchange={handleFieldChange}
+                                    data-field="numeroSinistre"/>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">
+                                Date de survenance <span class="required">*</span>
+                            </label>
+                            <input  type="date"
+                                    class="field-input"
+                                    value={formData.dateSurvenance}
+                                    onchange={handleFieldChange}
+                                    data-field="dateSurvenance"/>
+                            <template if:true={errors.dateSurvenance}>
+                                <span class="field-error">{errors.dateSurvenance}</span>
+                            </template>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">
+                                Date de nomination <span class="required">*</span>
+                            </label>
+                            <input  type="date"
+                                    class="field-input"
+                                    value={formData.dateNomination}
+                                    onchange={handleFieldChange}
+                                    data-field="dateNomination"/>
+                            <template if:true={errors.dateNomination}>
+                                <span class="field-error">{errors.dateNomination}</span>
+                            </template>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECTION : Informations judiciaires -->
+                <template if:true={showJudiciaireComplet}>
+                    <div class="section">
+                        <div class="section-title">Informations judiciaires</div>
+                        <div class="grid2">
+
+                            <div class="field" style="grid-column: span 2;">
+                                <label class="field-label">
+                                    Numéro de dossier tribunal
+                                    <span class="field-hint">(Format : Exercice / N° ordre / N° chambre)</span>
+                                </label>
+                                <input  type="text"
+                                        class="field-input"
+                                        placeholder="Ex : 2024/00123/04"
+                                        value={formData.numeroDossier}
+                                        onchange={handleDossierChange}
+                                        data-field="numeroDossier"/>
+                                <template if:true={showDossierParsed}>
+                                    <div class="dossier-parsed">
+                                        <span>Année : <strong>{formData.anneeDossier}</strong></span>
+                                        <span>N° ordre : <strong>{formData.numOrdre}</strong></span>
+                                        <span>N° chambre : <strong>{formData.numChambre}</strong></span>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Juridiction — filtrée sur TPI uniquement -->
+                            <div class="field">
+                                <label class="field-label">Juridiction</label>
+                                <select class="field-input"
+                                        value={formData.juridiction}
+                                        onchange={handleFieldChange}
+                                        data-field="juridiction">
+                                    <option value="">— Sélectionner —</option>
+<template for:each={juridictionOptions} for:item="opt">
+    <option key={opt.value} value={opt.value}>{opt.label}</option>
+</template>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label class="field-label">Nature de dossier</label>
+                                <select class="field-input"
+                                        value={formData.natureDossier}
+                                        onchange={handleFieldChange}
+                                        data-field="natureDossier">
+                                    <option value="">— Sélectionner —</option>
+<template for:each={natureDossierOptions} for:item="opt">
+    <option key={opt} value={opt}>{opt}</option>
+</template>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label class="field-label">Référence dossier prestataire</label>
+                                <input  type="text"
+                                        class="field-input"
+                                        placeholder="Référence interne cabinet"
+                                        value={formData.referencePrestataire}
+                                        onchange={handleFieldChange}
+                                        data-field="referencePrestataire"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
+
+                <!-- SECTION : Infos judiciaires partielles Autocorporel -->
+                <template if:true={showJudiciairePartiel}>
+                    <div class="section">
+                        <div class="section-title">Informations judiciaires</div>
+                        <div class="grid2">
+
+                            <div class="field">
+                                <label class="field-label">Nature de dossier</label>
+                                <select class="field-input"
+                                        value={formData.natureDossier}
+                                        onchange={handleFieldChange}
+                                        data-field="natureDossier">
+                                    <option value="">— Sélectionner —</option>
+<template for:each={natureDossierOptions} for:item="opt">
+    <option key={opt} value={opt}>{opt}</option>
+</template>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label class="field-label">Référence dossier prestataire</label>
+                                <input  type="text"
+                                        class="field-input"
+                                        placeholder="Référence interne cabinet"
+                                        value={formData.referencePrestataire}
+                                        onchange={handleFieldChange}
+                                        data-field="referencePrestataire"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+
+            <!-- FOOTER étape 2 -->
+            <div class="form-footer">
+                <button class="btn-annuler" onclick={handlePrecedent}>‹ Précédent</button>
+                <button class="btn-suivant" onclick={handleSuivant}>
+                    Suivant ›
+                </button>
+            </div>
+        </template>
+
+        <!-- ═══ ÉTAPE 3 — Personnes impliquées ═══ -->
+        <template if:true={isStep3}>
+            <div class="form-body">
+
+                <div class="section">
+                    <div class="section-title">Ajouter une personne impliquée</div>
+                    <div class="grid2">
+
+                        <div class="field">
+                            <label class="field-label">
+                                Type de personne <span class="required">*</span>
+                            </label>
+                            <select class="field-input"
+                                    value={newPersonne.type}
+                                    onchange={handlePersonneField}
+                                    data-field="type">
+                                <option value="">— Sélectionner —</option>
+                                <option value="Victime">Victime</option>
+                                <option value="Assuré">Assuré</option>
+                                <option value="Tiers">Tiers</option>
+                                <option value="Partie civile">Partie civile</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">
+                                Civilité <span class="required">*</span>
+                            </label>
+                            <select class="field-input"
+                                    value={newPersonne.civilite}
+                                    onchange={handlePersonneField}
+                                    data-field="civilite">
+                                <option value="">— Sélectionner —</option>
+                                <option value="M.">M.</option>
+                                <option value="Mme">Mme</option>
+                                <option value="Dr">Dr</option>
+                                <option value="Me">Me</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">
+                                Nom <span class="required">*</span>
+                            </label>
+                            <input  type="text"
+                                    class="field-input"
+                                    placeholder="Nom"
+                                    value={newPersonne.nom}
+                                    onchange={handlePersonneField}
+                                    data-field="nom"/>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">
+                                Prénom <span class="required">*</span>
+                            </label>
+                            <input  type="text"
+                                    class="field-input"
+                                    placeholder="Prénom"
+                                    value={newPersonne.prenom}
+                                    onchange={handlePersonneField}
+                                    data-field="prenom"/>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">
+                                Date de naissance <span class="required">*</span>
+                            </label>
+                            <input  type="date"
+                                    class="field-input"
+                                    value={newPersonne.dateNaissance}
+                                    onchange={handlePersonneField}
+                                    data-field="dateNaissance"/>
+                        </div>
+
+                        <div class="field">
+                            <label class="field-label">État de santé</label>
+                            <select class="field-input"
+                                    value={newPersonne.etatSante}
+                                    onchange={handlePersonneField}
+                                    data-field="etatSante">
+                                <option value="">— Optionnel —</option>
+                                <option value="Non blessé">Non blessé</option>
+                                <option value="Blessé">Blessé</option>
+                                <option value="Décédé">Décédé</option>
+                                <option value="Indemne">Indemne</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <template if:true={errors.personne}>
+                        <div class="alert-error">{errors.personne}</div>
+                    </template>
+
+                    <button class="btn-ajouter" onclick={handleAjouterPersonne}>
+                        + Ajouter cette personne
+                    </button>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">
+                        Personnes impliquées
+                        <span class="count-badge">{personnes.length}</span>
+                    </div>
+
+                    <template if:true={hasPersonnes}>
+                        <table class="personnes-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Civilité</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Date naissance</th>
+                                    <th>État santé</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={personnes} for:item="p" for:index="idx">
+                                    <tr key={p.key}>
+                                        <td>{p.type}</td>
+                                        <td>{p.civilite}</td>
+                                        <td>{p.nom}</td>
+                                        <td>{p.prenom}</td>
+                                        <td>{p.dateNaissance}</td>
+                                        <td>{p.etatSante}</td>
+                                        <td>
+                                            <button class="btn-supprimer"
+                                                    onclick={handleSupprimerPersonne}
+                                                    data-index={idx}>✕</button>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </template>
+
+                    <template if:false={hasPersonnes}>
+                        <div class="empty-personnes">
+                            Aucune personne ajoutée. Au moins une personne est obligatoire.
+                        </div>
+                    </template>
+
+                    <template if:true={errors.personnesListe}>
+                        <div class="alert-error">{errors.personnesListe}</div>
+                    </template>
+                </div>
+
+            </div>
+
+            <!-- FOOTER étape 3 -->
+            <div class="form-footer">
+                <button class="btn-annuler" onclick={handlePrecedent}>‹ Précédent</button>
+                <button class="btn-suivant"
+                        onclick={handleSoumettre}
+                        disabled={isLoading}>
+                    <template if:true={isLoading}>Création en cours...</template>
+                    <template if:false={isLoading}>Soumettre la mission</template>
+                </button>
+            </div>
+        </template>
+
+        <!-- Message succès -->
+        <template if:true={isSuccess}>
+            <div class="success-box">
+                <div class="success-icon">✓</div>
+                <div class="success-title">Mission créée avec succès</div>
+                <div class="success-num">N° {missionCreeeId}</div>
+                <button class="btn-suivant" onclick={handleNouvelleMission}>
+                    Créer une nouvelle mission
+                </button>
+            </div>
+        </template>
+
+    </div>
+</template>

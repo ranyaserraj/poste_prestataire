@@ -1,0 +1,33 @@
+<template>
+    <section
+        role="dialog"
+        tabindex="-1"
+        aria-modal="true"
+        class={modalClass}
+    >
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium slds-hyphenate">{title}</h2>
+            </header>
+
+            <div class="slds-modal__content slds-p-around_medium">
+                <p>{message}</p>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <lightning-button
+                    label="Annuler"
+                    onclick={handleCancel}
+                ></lightning-button>
+                <lightning-button
+                    label="Confirmer"
+                    variant="destructive"
+                    onclick={handleConfirm}
+                    class="slds-m-left_small"
+                ></lightning-button>
+            </footer>
+        </div>
+    </section>
+
+    <div class={backdropClass}></div>
+</template>

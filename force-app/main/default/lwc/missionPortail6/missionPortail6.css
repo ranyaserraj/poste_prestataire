@@ -1,0 +1,261 @@
+/* ────────────────────────────────────────────────────────────────
+   VARIABLES CSS
+   ──────────────────────────────────────────────────────────────── */
+:host {
+    --sf-blue: #0176d3;
+    --sf-blue-dk: #014486;
+    --sf-blue-lt: #e8f4fd;
+    --sf-blue-mid: #b5d4f4;
+    --sf-green: #2e844a;
+    --sf-green-lt: #eaf5ea;
+    --sf-orange: #fe9339;
+    --sf-orange-lt: #fef0e0;
+    --sf-red: #ba0517;
+    --sf-red-lt: #fcecea;
+    --sf-purple: #5a2d9a;
+    --sf-purple-lt: #f0e8ff;
+    --sf-teal: #0e6655;
+    --sf-teal-lt: #d1f2eb;
+    --sf-gray50: #f3f3f3;
+    --sf-gray200: #c9c9c9;
+    --sf-gray400: #939393;
+    --sf-text: #181818;
+    --sf-text2: #3e3e3c;
+    --sf-text3: #706e6b;
+    --sf-border: #ddd;
+    --sf-white: #fff;
+    --r: 4px;
+    --r2: 6px;
+
+    display: block;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    color: var(--sf-text);
+    background: var(--sf-gray50);
+    padding: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── PAGE HEADER ─── */
+.ph { margin-bottom: 16px; }
+.ph-title { font-size: 18px; font-weight: 600; }
+.ph-sub { font-size: 12px; color: var(--sf-text3); margin-top: 3px; }
+
+/* ─── FILTER BAR ─── */
+.filter-bar {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+.filter-lbl { 
+    font-size: 11px; 
+    color: var(--sf-text3); 
+}
+
+.fbtn {
+    padding: 3px 11px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--sf-gray200);
+    background: var(--sf-white);
+    color: var(--sf-text2);
+    font-family: inherit;
+    transition: all .12s;
+}
+
+.fbtn:hover { 
+    border-color: var(--sf-blue); 
+    color: var(--sf-blue); 
+}
+
+.fbtn.on { 
+    background: var(--sf-blue-lt); 
+    border-color: var(--sf-blue); 
+    color: var(--sf-blue-dk); 
+    font-weight: 600;
+}
+
+/* ─── BUTTONS ─── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 30px;
+    padding: 0 14px;
+    border-radius: var(--r);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid;
+    font-family: inherit;
+    transition: background .12s;
+    white-space: nowrap;
+}
+
+.btn-p {
+    background: var(--sf-blue);
+    color: #fff;
+    border-color: var(--sf-blue);
+}
+
+.btn-p:hover {
+    background: #0164b0;
+    border-color: #0164b0;
+}
+
+/* ─── TABLE ─── */
+.tbl-wrap {
+    background: var(--sf-white);
+    border: 1px solid var(--sf-border);
+    border-radius: var(--r2);
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+
+.tbl-head {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--sf-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.tbl-title {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.tbl-search {
+    height: 26px;
+    border: 1px solid var(--sf-gray200);
+    border-radius: var(--r);
+    padding: 0 8px 0 26px;
+    font-size: 12px;
+    outline: none;
+    width: 160px;
+    background: var(--sf-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Ccircle cx='5' cy='5' r='3.5' stroke='%23939393' stroke-width='1.2'/%3E%3Cpath d='M8 8l2 2' stroke='%23939393' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 7px center;
+}
+
+.tbl-search:focus {
+    border-color: var(--sf-blue);
+    outline: 1px solid var(--sf-blue-lt);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+th {
+    padding: 6px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--sf-text3);
+    background: var(--sf-gray50);
+    border-bottom: 1px solid var(--sf-border);
+    white-space: nowrap;
+}
+
+td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--sf-border);
+    color: var(--sf-text2);
+    vertical-align: middle;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafafa; }
+
+.td-link {
+    color: var(--sf-blue);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.empty-row {
+    text-align: center;
+    color: var(--sf-text3);
+    padding: 14px;
+    font-size: 12px;
+}
+
+/* ─── PAGINATION ─── */
+.pagi {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 8px 14px;
+    border-top: 1px solid var(--sf-border);
+}
+
+.pagi-info {
+    font-size: 11px;
+    color: var(--sf-text3);
+    margin-right: 6px;
+}
+
+/* ─── BADGES ─── */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.bdot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* ─── BADGES STATUT
+   🔥 FIX : classes basées sur normalizeKey() → sans espaces ni underscores
+   Valeur API       → clé normalisée
+   'En_cours'       → 'encours'
+   'Rapport_recu'   → 'rapportrecu'
+   'Rapport_attendu'→ 'rapportattendu'
+   'Cloturee'       → 'cloturee'
+   'Initiee'        → 'initiee'
+   'Annulee'        → 'annulee'
+   ──────────────────────────────────────────────────────────────── */
+.badge-statut-encours        { background: var(--sf-orange-lt); color: #5c3800; }
+.badge-statut-encours .bdot  { background: var(--sf-orange); }
+
+.badge-statut-rapportrecu        { background: var(--sf-purple-lt); color: var(--sf-purple); }
+.badge-statut-rapportrecu .bdot  { background: var(--sf-purple); }
+
+.badge-statut-rapportattendu        { background: #e8f0fe; color: #1a3a6b; }
+.badge-statut-rapportattendu .bdot  { background: #3a6bc4; }
+
+.badge-statut-cloturee        { background: var(--sf-green-lt); color: var(--sf-green); }
+.badge-statut-cloturee .bdot  { background: var(--sf-green); }
+
+.badge-statut-initiee        { background: var(--sf-blue-lt); color: var(--sf-blue-dk); }
+.badge-statut-initiee .bdot  { background: var(--sf-blue); }
+
+.badge-statut-annulee        { background: var(--sf-red-lt); color: var(--sf-red); }
+.badge-statut-annulee .bdot  { background: var(--sf-red); }
+
+.badge-statut-default        { background: var(--sf-gray50); color: var(--sf-text3); }
+.badge-statut-default .bdot  { background: var(--sf-gray400); }
+
+/* ─── BADGES BRANCHE ─── */
+.badge-branche-at        { background: #fff0d0; color: #8a5a00; font-weight: 600; }
+.badge-branche-rc        { background: var(--sf-purple-lt); color: var(--sf-purple); font-weight: 600; }
+.badge-branche-autocorporel { background: var(--sf-teal-lt); color: var(--sf-teal); font-weight: 600; }
+.badge-branche-default   { background: var(--sf-gray50); color: var(--sf-text3); }

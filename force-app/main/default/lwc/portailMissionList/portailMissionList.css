@@ -1,0 +1,24 @@
+/* Copiez ici le contenu exact de votre fichier source */
+:host {
+    --sf-blue: #001639;
+    --sf-blue-dk: #000c21;
+    --r: 4px;
+}
+
+.nav { background: var(--sf-blue-dk); height: 48px; display: flex; align-items: center; padding: 0 20px; }
+.nav-link { color: rgba(255,255,255,.75); font-size: 12px; cursor: pointer; border: none; background: none; }
+.nav-link.on { color: #fff; background: rgba(255,255,255,.18); }
+
+.tl-table { width: 100%; display: flex; flex-direction: column; }
+.tl-tr { 
+    display: grid; 
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr; /* Ajustez selon vos colonnes */
+    padding: 10px 20px; 
+    border-bottom: 1px solid #eee; 
+}
+.tl-th { background: #f8f9fa; font-weight: bold; font-size: 11px; color: #888; }
+.clickable:hover { background: #f0f7ff; cursor: pointer; }
+
+/* Styles des badges extraits de votre source */
+.badge { padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+.status-blue { background: #e3f2fd; color: #1976d2; }

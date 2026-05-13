@@ -1,0 +1,257 @@
+/**
+ * Dashboard : fond gris-bleu sans ombre ; cartes KPI aux couleurs lumineuses.
+ */
+
+:host {
+  --accent-cyan: #22d3ee;
+  --sf-text: #181818;
+  --sf-text2: #3e3e3c;
+  --sf-text3: #706e6b;
+  --sf-border: #e5e5e5;
+  --sf-border-strong: #dddbda;
+  --sf-white: #fff;
+  --page-bg: #eef2f8;
+  --card-bg: #ffffff;
+
+  display: block;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: var(--sf-text);
+  background: linear-gradient(185deg, #f3f6fb 0%, var(--page-bg) 42%, #e6eaf2 100%);
+  padding: 20px;
+  min-height: 100%;
+}
+
+.dash-root {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── En-tête : carte claire (pas de gros dégradé bleu) ── */
+.dash-hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--sf-border-strong);
+}
+
+.dash-hero-text {
+  min-width: 0;
+}
+
+.dash-greeting {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--sf-text);
+  line-height: 1.25;
+}
+
+.dash-greeting::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 16px;
+  margin-right: 12px;
+  vertical-align: middle;
+  border-radius: 2px;
+  background: var(--accent-cyan);
+}
+
+.dash-date {
+  margin: 8px 0 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--sf-text3);
+}
+
+.dash-hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sf-text2);
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid var(--sf-border-strong);
+}
+
+.dash-hero-pill-icon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  opacity: 0.85;
+}
+
+/* ── KPI : accents par statut, pas de bleu dominant ── */
+.kpi-grid {
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  position: relative;
+  border-radius: 14px;
+  border-top-width: 4px;
+  border-top-style: solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+  padding: 16px 18px 18px;
+  height: 100%;
+  min-height: 116px;
+  background: linear-gradient(180deg, var(--kpi-tint-top) 0%, var(--kpi-tint-bottom) 48%, #ffffff 100%);
+  border-top-color: var(--kpi-accent);
+  border-right-color: var(--kpi-edge);
+  border-bottom-color: var(--kpi-edge);
+  border-left-color: var(--kpi-edge);
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.02);
+}
+
+.kpi-card--lead {
+  --kpi-accent: #0ea5e9;
+  --kpi-tint-top: #e0f2fe;
+  --kpi-tint-bottom: #f0f9ff;
+  --kpi-edge: #bae6fd;
+}
+
+.kpi-card--orange {
+  --kpi-accent: #f97316;
+  --kpi-tint-top: #ffedd5;
+  --kpi-tint-bottom: #fff7ed;
+  --kpi-edge: #fdba74;
+}
+
+.kpi-card--green {
+  --kpi-accent: #10b981;
+  --kpi-tint-top: #d1fae5;
+  --kpi-tint-bottom: #ecfdf5;
+  --kpi-edge: #6ee7b7;
+}
+
+.kpi-card--purple {
+  --kpi-accent: #a855f7;
+  --kpi-tint-top: #ede9fe;
+  --kpi-tint-bottom: #faf5ff;
+  --kpi-edge: #c4b5fd;
+}
+
+.kpi-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sf-text3);
+}
+
+.kpi-value {
+  margin: 8px 0 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--sf-text);
+  line-height: 1.1;
+}
+
+.kpi-sub {
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.kpi-sub--orange {
+  color: #ea580c;
+  font-weight: 600;
+}
+
+/* ── Accès rapide : carte neutre, pas de halo cyan ── */
+.quick-panel {
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--sf-border-strong);
+}
+
+.quick-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--sf-border);
+  background: #fafbfc;
+}
+
+.quick-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sf-text);
+}
+
+.quick-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 13px;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 2px;
+  background: var(--accent-cyan);
+  opacity: 0.75;
+}
+
+.quick-hint {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sf-text3);
+}
+
+.quick-panel-body {
+  padding: 16px 18px 20px;
+  border: 1px solid var(--sf-border);
+  border-radius: 6px;
+  margin: 14px 16px 16px;
+  background: var(--card-bg);
+}
+
+.quick-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--sf-text2);
+}
+
+.quick-text strong {
+  color: var(--sf-text);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .dash-hero {
+    padding: 16px 16px;
+  }
+
+  .dash-greeting {
+    font-size: 18px;
+  }
+
+  .quick-panel-body {
+    margin: 12px 12px 14px;
+  }
+}

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nature_Mission__c</fullName>
+    <label>Nature de Mission</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Branche__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Vacation sur siège</fullName>
+                <default>false</default>
+                <label>Vacation sur siège</label>
+            </value>
+            <value>
+                <fullName>Vacation sur site</fullName>
+                <default>false</default>
+                <label>Vacation sur site</label>
+            </value>
+            <value>
+                <fullName>Contrôle médicale</fullName>
+                <default>false</default>
+                <label>Contrôle médicale</label>
+            </value>
+            <value>
+                <fullName>Vacation</fullName>
+                <default>false</default>
+                <label>Vacation</label>
+            </value>
+            <value>
+                <fullName>Procédure judiciaire</fullName>
+                <default>false</default>
+                <label>Procédure judiciaire</label>
+            </value>
+            <value>
+                <fullName>Défense compagnie</fullName>
+                <default>false</default>
+                <label>Défense compagnie</label>
+            </value>
+            <value>
+                <fullName>Transaction partenariat</fullName>
+                <default>false</default>
+                <label>Transaction partenariat</label>
+            </value>
+            <value>
+                <fullName>CDRA</fullName>
+                <default>false</default>
+                <label>CDRA</label>
+            </value>
+            <value>
+                <fullName>Autres</fullName>
+                <default>false</default>
+                <label>Autres</label>
+            </value>
+            <value>
+                <fullName>Procédure sociale</fullName>
+                <default>false</default>
+                <label>Procédure sociale</label>
+            </value>
+            <value>
+                <fullName>Astreinte</fullName>
+                <default>false</default>
+                <label>Astreinte</label>
+            </value>
+            <value>
+                <fullName>Saisie Arrêt</fullName>
+                <default>false</default>
+                <label>Saisie Arrêt</label>
+            </value>
+            <value>
+                <fullName>Aggravation</fullName>
+                <default>false</default>
+                <label>Aggravation</label>
+            </value>
+            <value>
+                <fullName>Atténuation</fullName>
+                <default>false</default>
+                <label>Atténuation</label>
+            </value>
+            <value>
+                <fullName>Recours</fullName>
+                <default>false</default>
+                <label>Recours</label>
+            </value>
+            <value>
+                <fullName>Rectification erreur matérielle</fullName>
+                <default>false</default>
+                <label>Rectification erreur matérielle</label>
+            </value>
+            <value>
+                <fullName>Dépôt de chèque CDRA</fullName>
+                <default>false</default>
+                <label>Dépôt de chèque CDRA</label>
+            </value>
+            <value>
+                <fullName>Sommation interpellative</fullName>
+                <default>false</default>
+                <label>Sommation interpellative</label>
+            </value>
+            <value>
+                <fullName>Évaluation préjudice RC</fullName>
+                <default>false</default>
+                <label>Évaluation préjudice RC</label>
+            </value>
+            <value>
+                <fullName>Demande d&apos;expertise classique</fullName>
+                <default>false</default>
+                <label>Demande d&apos;expertise classique</label>
+            </value>
+            <value>
+                <fullName>Demande d&apos;expertise sur document</fullName>
+                <default>false</default>
+                <label>Demande d&apos;expertise sur document</label>
+            </value>
+            <value>
+                <fullName>Demande d&apos;expertise additive</fullName>
+                <default>false</default>
+                <label>Demande d&apos;expertise additive</label>
+            </value>
+            <value>
+                <fullName>Demande d’expertise judiciaire</fullName>
+                <default>false</default>
+                <label>Demande d’expertise judiciaire</label>
+            </value>
+            <value>
+                <fullName>Évaluation AT</fullName>
+                <default>false</default>
+                <label>Évaluation AT</label>
+            </value>
+            <value>
+                <fullName>Consolidation</fullName>
+                <default>false</default>
+                <label>Consolidation</label>
+            </value>
+            <value>
+                <fullName>Prise en charge</fullName>
+                <default>false</default>
+                <label>Prise en charge</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Contrôle médicale</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Vacation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Procédure sociale</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Astreinte</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Saisie Arrêt</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Aggravation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Atténuation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Recours</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Rectification erreur matérielle</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Sommation interpellative</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <valueName>Demande d&apos;expertise classique</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <controllingFieldValue>RC</controllingFieldValue>
+            <valueName>Demande d&apos;expertise sur document</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <controllingFieldValue>RC</controllingFieldValue>
+            <valueName>Demande d&apos;expertise additive</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <controllingFieldValue>RC</controllingFieldValue>
+            <valueName>Évaluation AT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AT</controllingFieldValue>
+            <controllingFieldValue>Santé</controllingFieldValue>
+            <valueName>Prise en charge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Santé</controllingFieldValue>
+            <valueName>Vacation sur siège</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Santé</controllingFieldValue>
+            <valueName>Vacation sur site</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>RD</controllingFieldValue>
+            <valueName>Procédure judiciaire</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Autocorporel</controllingFieldValue>
+            <valueName>Défense compagnie</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Autocorporel</controllingFieldValue>
+            <valueName>Transaction partenariat</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Autocorporel</controllingFieldValue>
+            <valueName>CDRA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Autocorporel</controllingFieldValue>
+            <valueName>Autres</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>RC</controllingFieldValue>
+            <valueName>Évaluation préjudice RC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>RC</controllingFieldValue>
+            <valueName>Demande d’expertise judiciaire</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Corporel &amp; Santé</controllingFieldValue>
+            <valueName>Consolidation</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

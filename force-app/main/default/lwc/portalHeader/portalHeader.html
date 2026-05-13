@@ -1,0 +1,49 @@
+<template>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-container">
+                <lightning-icon icon-name="utility:clock" variant="inverse" size="small" class="logo-icon"></lightning-icon>
+                <h1 class="portal-title">{displayTitle}</h1>
+            </div>
+        </div>
+
+        <div class="header-center">
+            <div class="info-pill">
+                <span class="pill-value">{displayInfo}</span>
+            </div>
+            <div class="header-search">
+                <div class="search-wrapper">
+                    <lightning-icon icon-name="utility:search" size="xx-small" class="search-icon"></lightning-icon>
+                    <input type="text" placeholder="Rechercher..." class="search-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <button class="notification-btn" title="Notifications">
+                <lightning-icon icon-name="utility:notification" variant="inverse" size="xx-small"></lightning-icon>
+                <div class="dot"></div>
+            </button>
+            <div class="user-menu-container">
+                <button class="user-profile-trigger" onclick={toggleMenu}>
+                    <div class="user-avatar">{userInitials}</div>
+                </button>
+
+                <template if:true={isMenuOpen}>
+                    <div class="profile-dropdown">
+                        <div class="dropdown-header">
+                            <span class="user-name">{userName}</span>
+                            <span class="user-role">{userType}</span>
+                        </div>
+                        <ul class="dropdown-list">
+                            <li class="dropdown-item" onclick={handleLogout}>
+                                <lightning-icon icon-name="utility:logout" size="xx-small" class="item-icon"></lightning-icon>
+                                <span>Se déconnecter</span>
+                            </li>
+                        </ul>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </header>
+</template>

@@ -1,0 +1,320 @@
+﻿:host {
+  /* Base variables (alignées portail) */
+  --sf-blue: #0176d3;
+  --sf-blue-dk: #014486;
+  --sf-blue-lt: #e8f4fd;
+  --sf-gray50: #f3f3f3;
+  --sf-gray200: #c9c9c9;
+  --sf-gray400: #939393;
+  --sf-text: #181818;
+  --sf-text2: #3e3e3c;
+  --sf-text3: #706e6b;
+  --sf-border: #ddd;
+  --sf-white: #fff;
+  --r: 4px;
+  --r2: 8px;
+
+  /* Modern accents (navbar/dashboard) */
+  --nav-from: #0f172a;
+  --nav-to: #1e3a8a;
+  --cyan: #22d3ee;
+
+  display: block;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  color: var(--sf-text);
+}
+
+.chat {
+  background: var(--sf-white);
+  border: 1px solid var(--sf-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* ── Thread ── */
+.thread {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 420px;
+  overflow: auto;
+  background:
+    radial-gradient(900px 420px at 85% 10%, rgba(34, 211, 238, 0.10) 0%, rgba(34, 211, 238, 0) 55%),
+    radial-gradient(900px 420px at 10% 85%, rgba(30, 58, 138, 0.08) 0%, rgba(30, 58, 138, 0) 55%),
+    linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  padding-bottom: 18px;
+}
+
+/* Scrollbar (desktop) */
+.thread::-webkit-scrollbar {
+  width: 10px;
+}
+.thread::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.04);
+  border-left: 1px solid rgba(15, 23, 42, 0.06);
+}
+.thread::-webkit-scrollbar-thumb {
+  background: rgba(30, 58, 138, 0.28);
+  border-radius: 999px;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+}
+.thread::-webkit-scrollbar-thumb:hover {
+  background: rgba(30, 58, 138, 0.38);
+}
+
+/* Bubble container */
+.msg {
+  width: fit-content;
+  max-width: min(720px, 92%);
+  border-radius: 16px;
+  border: 1px solid;
+  padding: 10px 12px 12px;
+  position: relative;
+  transform-origin: 0 0;
+  animation: popIn 120ms ease-out both;
+}
+
+.msg--left {
+  align-self: flex-start;
+  background: #f8fafc;
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+.msg--right {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--nav-from) 0%, var(--nav-to) 100%);
+  border-color: rgba(34, 211, 238, 0.18);
+}
+
+/* Bubble “tail” retiré (évite le losange) */
+
+/* Header line in bubble */
+.msg-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.avatar--left {
+  background: rgba(1, 118, 211, 0.12);
+  color: var(--sf-blue-dk);
+  border: 1px solid rgba(1, 118, 211, 0.18);
+}
+
+.avatar--right {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.avatar-text {
+  line-height: 1;
+}
+
+.msg-who {
+  min-width: 0;
+}
+
+.msg-who-top {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.msg-author {
+  font-weight: 900;
+  color: var(--sf-blue-dk);
+}
+
+.msg--right .msg-author {
+  color: #ffffff;
+}
+
+.msg-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sf-text3);
+}
+
+.msg--right .msg-name {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.msg-meta {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--sf-text3);
+}
+
+.msg-meta--right {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.msg-meta--unread {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+/* Body */
+.msg-body {
+  color: var(--sf-text2);
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.msg-body--right {
+  color: #ffffff;
+}
+
+/* ── Composer ── */
+.composer {
+  padding: 12px 14px 14px;
+  border-top: 1px solid var(--sf-border);
+  background: rgba(250, 250, 250, 0.92);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  bottom: 0;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tag-lbl {
+  font-size: 12px;
+  color: var(--sf-text3);
+  font-weight: 700;
+}
+
+.tag {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  color: var(--sf-text2);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: border-color 120ms ease, transform 120ms ease, background 120ms ease, color 120ms ease;
+}
+
+.tag:hover {
+  border-color: rgba(34, 211, 238, 0.65);
+  color: #0f172a;
+  background: rgba(34, 211, 238, 0.10);
+  transform: translateY(-1px);
+}
+
+.compose-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.input {
+  flex: 1;
+  min-height: 44px;
+  max-height: 140px;
+  resize: vertical;
+  border: 1px solid var(--sf-gray200);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  background: #ffffff;
+}
+
+.input:focus {
+  border-color: rgba(34, 211, 238, 0.65);
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.16);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn {
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1px solid;
+  background: #ffffff;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: transform 120ms ease, filter 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.btn--neutral {
+  border-color: var(--sf-gray200);
+  color: var(--sf-text2);
+}
+
+.btn--primary {
+  border-color: rgba(30, 58, 138, 0.2);
+  background: linear-gradient(135deg, var(--nav-from) 0%, var(--nav-to) 100%);
+  color: #ffffff;
+}
+
+.btn--primary:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.btn--neutral:hover {
+  border-color: rgba(15, 23, 42, 0.22);
+  background: #f8fafc;
+}
+
+@media (max-width: 768px) {
+  .thread {
+    max-height: 320px;
+  }
+
+  .msg {
+    max-width: 96%;
+  }
+
+  .compose-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(2px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statut__c</fullName>
+    <label>Statut</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Initiée</fullName>
+                <default>false</default>
+                <label>Initiée</label>
+            </value>
+            <value>
+                <fullName>En_cours</fullName>
+                <default>false</default>
+                <label>En cours</label>
+            </value>
+            <value>
+                <fullName>Rapport_recu</fullName>
+                <default>false</default>
+                <label>Rapport reçu</label>
+            </value>
+            <value>
+                <fullName>Rapport_attendu</fullName>
+                <default>false</default>
+                <label>Rapport attendu</label>
+            </value>
+            <value>
+                <fullName>Cloturee</fullName>
+                <default>false</default>
+                <label>Clôturée</label>
+            </value>
+            <value>
+                <fullName>Annulee</fullName>
+                <default>false</default>
+                <label>Annulée</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
