@@ -39,24 +39,50 @@
                 </template>
               </div>
               <div class="dm-badges">
-                <template if:true={showStatutBadge}>
-                  <span class="dm-pill dm-pill--statut">{badgeStatut}</span>
+                <template if:true={showHeaderStatut}>
+                  <span class={headerStatutClass}>{badgeStatut}</span>
                 </template>
                 <template if:true={showBrancheBadge}>
-                  <span class="dm-pill dm-pill--branche">{badgeBranche}</span>
+                  <span class="dm-pill dm-pill--ghost">{badgeBranche}</span>
                 </template>
-                <span class="dm-pill dm-pill--type">{badgeType}</span>
+                <span class="dm-pill dm-pill--ghost">{badgeType}</span>
               </div>
             </div>
 
-            <dl class="dm-meta">
+            <template if:true={showStatusPath}>
+              <nav class="dm-path-wrap" aria-label="Progression du statut de la mission">
+                <template if:true={missionStatutCancelled}>
+                  <p class="dm-path-banner" role="status">Cette mission est <strong>annulée</strong>.</p>
+                </template>
+                <div class="dm-stepper" role="list">
+                  <template for:each={statusPathSteps} for:item="st">
+                    <span key={st.key} class="dm-step-wrap" role="listitem" aria-current={st.ariaCur}>
+                      <span class={st.itemClass}>
+                        <span class="dm-step-dot" aria-hidden="true"></span>
+                        <span class="dm-step-lbl">{st.label}</span>
+                      </span>
+                      <template if:true={st.showChevron}>
+                        <span class="dm-step-chev" aria-hidden="true">›</span>
+                      </template>
+                    </span>
+                  </template>
+                </div>
+              </nav>
+            </template>
+
+            <dl class="dm-summary-strip">
               <template for:each={summaryItems} for:item="row">
                 <div key={row.key} class={row.cellClass}>
-                  <dt class="dm-meta-lbl">{row.label}</dt>
-                  <dd class="dm-meta-val">
+                  <dt class="dm-summary-lbl">{row.label}</dt>
+                  <dd class="dm-summary-val">
                     <template if:true={row.warn}>
                       <span class="dm-warn">
-                        <span class="dm-warn-icon" aria-hidden="true">!</span>
+                        <lightning-icon
+                          icon-name="utility:warning"
+                          size="xx-small"
+                          alternative-text="Attention"
+                          class="dm-warn-icn"
+                        ></lightning-icon>
                         {row.value}
                       </span>
                     </template>
@@ -72,7 +98,12 @@
           <nav class="dm-tabs" aria-label="Sections mission">
             <template for:each={tabsNav} for:item="t">
               <button key={t.key} class={t.tabClass} type="button" data-id={t.id} onclick={handleTabClick}>
-                <lightning-icon icon-name={t.icon} size="x-small" class="dm-tab-icn"></lightning-icon>
+                <lightning-icon
+                  icon-name={t.icon}
+                  size="x-small"
+                  alternative-text={t.label}
+                  class="dm-tab-icn"
+                ></lightning-icon>
                 <span class="dm-tab-txt">{t.label}</span>
                 <template if:true={t.showBadge}>
                   <span class="dm-tab-badge">{t.badgeCount}</span>
@@ -84,69 +115,102 @@
           <div class="dm-body">
             <template if:true={showInfos}>
               <div class="dm-grid">
-                <section class="dm-card">
-                  <div class="dm-card-h">Détails de la mission</div>
-                  <template if:true={hasLeftFields}>
-                    <dl class="dm-dl">
-                      <template for:each={leftCardFields} for:item="f">
-                        <div key={f.key} class="dm-dl-row">
-                          <dt class="dm-dl-lbl">{f.label}</dt>
-                          <dd class="dm-dl-val">{f.value}</dd>
-                        </div>
-                      </template>
-                    </dl>
-                  </template>
-                  <template if:false={hasLeftFields}>
-                    <div class="dm-empty">Aucun champ dans cette colonne (field set ou droits).</div>
-                  </template>
+                <section class="dm-card" aria-labelledby="dm-info-left-h">
+                  <h2 id="dm-info-left-h" class="dm-card-h">Détails de la mission</h2>
+                  <div class="dm-card-body">
+                    <template if:true={hasLeftFields}>
+                      <dl class="dm-fields">
+                        <template for:each={leftCardFields} for:item="f">
+                          <div key={f.key} class={f.rowClass}>
+                            <dt class="dm-field-lbl">
+                              <template if:true={f.showAlertIcon}>
+                                <lightning-icon
+                                  icon-name="utility:warning"
+                                  size="xx-small"
+                                  alternative-text="Alerte"
+                                  class="dm-field-lbl-icn"
+                                ></lightning-icon>
+                              </template>
+                              {f.label}
+                            </dt>
+                            <dd class={f.valClass}>{f.value}</dd>
+                          </div>
+                        </template>
+                      </dl>
+                    </template>
+                    <template if:false={hasLeftFields}>
+                      <p class="dm-empty">Aucun champ dans cette colonne (field set ou droits).</p>
+                    </template>
+                  </div>
                 </section>
 
-                <section class="dm-card">
-                  <div class="dm-card-h">Informations spécifiques</div>
-                  <template if:true={hasRightFields}>
-                    <dl class="dm-dl">
-                      <template for:each={rightCardFields} for:item="f">
-                        <div key={f.key} class="dm-dl-row">
-                          <dt class="dm-dl-lbl">{f.label}</dt>
-                          <dd class="dm-dl-val">{f.value}</dd>
-                        </div>
-                      </template>
-                    </dl>
-                  </template>
-                  <template if:false={hasRightFields}>
-                    <div class="dm-empty">Aucun champ dans cette colonne (field set ou droits).</div>
-                  </template>
+                <section class="dm-card" aria-labelledby="dm-info-right-h">
+                  <h2 id="dm-info-right-h" class="dm-card-h">Informations spécifiques</h2>
+                  <div class="dm-card-body">
+                    <template if:true={hasRightFields}>
+                      <dl class="dm-fields">
+                        <template for:each={rightCardFields} for:item="f">
+                          <div key={f.key} class={f.rowClass}>
+                            <dt class="dm-field-lbl">
+                              <template if:true={f.showAlertIcon}>
+                                <lightning-icon
+                                  icon-name="utility:warning"
+                                  size="xx-small"
+                                  alternative-text="Alerte"
+                                  class="dm-field-lbl-icn"
+                                ></lightning-icon>
+                              </template>
+                              {f.label}
+                            </dt>
+                            <dd class={f.valClass}>{f.value}</dd>
+                          </div>
+                        </template>
+                      </dl>
+                    </template>
+                    <template if:false={hasRightFields}>
+                      <p class="dm-empty">Aucun champ dans cette colonne (field set ou droits).</p>
+                    </template>
+                  </div>
                 </section>
               </div>
             </template>
 
             <template if:true={showDocs}>
-              <div class="dm-card dm-card--full">
-                <div class="dm-card-h">Documents</div>
-                <div class="dm-empty">Aucun document pour le moment.</div>
-              </div>
+              <section class="dm-card dm-card--full" aria-labelledby="dm-docs-h">
+                <h2 id="dm-docs-h" class="dm-card-h">Documents</h2>
+                <div class="dm-card-body">
+                  <p class="dm-empty">Aucun document pour le moment.</p>
+                </div>
+              </section>
             </template>
 
             <template if:true={showMsg}>
-              <div class="dm-card dm-card--full">
-                <div class="dm-chat">
-                  <c-echange-mission></c-echange-mission>
+              <section class="dm-card dm-card--full" aria-label="Messagerie mission">
+                <h2 class="dm-card-h">Messagerie</h2>
+                <div class="dm-card-body dm-card-body--tight">
+                  <div class="dm-chat">
+                    <c-echange-mission></c-echange-mission>
+                  </div>
                 </div>
-              </div>
+              </section>
             </template>
 
             <template if:true={showHon}>
-              <div class="dm-card dm-card--full">
-                <div class="dm-card-h">Honoraires</div>
-                <div class="dm-empty">Section en préparation.</div>
-              </div>
+              <section class="dm-card dm-card--full" aria-labelledby="dm-hon-h">
+                <h2 id="dm-hon-h" class="dm-card-h">Honoraires</h2>
+                <div class="dm-card-body">
+                  <p class="dm-empty">Section en préparation.</p>
+                </div>
+              </section>
             </template>
 
             <template if:true={showHist}>
-              <div class="dm-card dm-card--full">
-                <div class="dm-card-h">Historique</div>
-                <div class="dm-empty">Historique indisponible.</div>
-              </div>
+              <section class="dm-card dm-card--full" aria-labelledby="dm-hist-h">
+                <h2 id="dm-hist-h" class="dm-card-h">Historique</h2>
+                <div class="dm-card-body">
+                  <p class="dm-empty">Historique indisponible.</p>
+                </div>
+              </section>
             </template>
           </div>
         </section>

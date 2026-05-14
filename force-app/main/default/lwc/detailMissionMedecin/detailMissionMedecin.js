@@ -3,7 +3,7 @@ import getMissionDetails from '@salesforce/apex/MissionMedecinController.getMiss
 import { CurrentPageReference } from 'lightning/navigation';
 
 const TAB_DEFS = [
-  { id: 'infos', label: 'Informations', icon: 'utility:info', badgeCount: 0 },
+  { id: 'infos', label: 'Infos', icon: 'utility:info', badgeCount: 0 },
   { id: 'docs', label: 'Documents', icon: 'utility:attach', badgeCount: 2 },
   { id: 'msg', label: 'Messagerie', icon: 'utility:chat', badgeCount: 1 },
   { id: 'hon', label: 'Honoraires', icon: 'utility:moneybag', badgeCount: 0 },
@@ -72,6 +72,128 @@ function fmt(v) {
   if (v === null || v === undefined || v === '') return '—';
   if (typeof v === 'boolean') return v ? 'Oui' : 'Non';
   return String(v);
+}
+
+/** Étapes picklist Statut__c — affichage stepper simple (point + texte). */
+const STATUT_PATH_SEQUENCE = [
+  { key: 'initiee', label: 'Initiée', tokens: ['initiée', 'initiee'] },
+  { key: 'en_cours', label: 'En cours', tokens: ['en cours', 'en_cours'] },
+  { key: 'rapport_attendu', label: 'Rapport attendu', tokens: ['rapport attendu', 'rapport_attendu'] },
+  { key: 'rapport_recu', label: 'Rapport reçu', tokens: ['rapport reçu', 'rapport_recu'] },
+  { key: 'cloturee', label: 'Clôturée', tokens: ['clôturée', 'cloturee'] },
+];
+
+function stripAccentsLower(s) {
+  return String(s || '')
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+function isStatutAnnulee(displayOrApi) {
+  const n = stripAccentsLower(displayOrApi);
+  return n.includes('annul');
+}
+
+/**
+ * Index de l’étape courante dans STATUT_PATH_SEQUENCE, ou -1 si inconnu / annulée.
+ */
+function resolveStatutPathIndex(displayValue) {
+  if (!displayValue || displayValue === '—') return -1;
+  if (isStatutAnnulee(displayValue)) return -1;
+  const n = stripAccentsLower(displayValue);
+  for (let i = 0; i < STATUT_PATH_SEQUENCE.length; i++) {
+    const { tokens } = STATUT_PATH_SEQUENCE[i];
+    for (let j = 0; j < tokens.length; j++) {
+      const t = stripAccentsLower(tokens[j]);
+      if (n === t || n.includes(t.replace(/_/g, ' '))) {
+        return i;
+      }
+    }
+  }
+  return -1;
+}
+
+function buildStatusPathSteps(currentDisplay) {
+  const cancelled = isStatutAnnulee(currentDisplay);
+  const idx = cancelled ? -1 : resolveStatutPathIndex(currentDisplay);
+
+  return STATUT_PATH_SEQUENCE.map((def, i) => {
+    let state = 'future';
+    if (cancelled) {
+      state = 'muted';
+    } else if (idx < 0) {
+      state = 'future';
+    } else if (i < idx) {
+      state = 'past';
+    } else if (i === idx) {
+      state = 'current';
+    } else {
+      state = 'future';
+    }
+    return {
+      key: def.key,
+      label: def.label,
+      itemClass: `dm-step-item dm-step-item--${state}`,
+      ariaCur: state === 'current' ? 'step' : undefined,
+      showChevron: i < STATUT_PATH_SEQUENCE.length - 1,
+    };
+  });
+}
+
+/**
+ * Mise en forme conditionnelle des lignes de champs (libellés FR / API).
+ */
+function decorateFieldRow(f) {
+  const labelN = stripAccentsLower(f.label || '');
+  const apiN = stripAccentsLower(f.key || '');
+  const valRaw = String(f.value ?? '').trim();
+  const valN = stripAccentsLower(valRaw);
+
+  let rowClass = 'dm-field-row';
+  let valClass = 'dm-field-val';
+
+  const isSinistreNonOuvert =
+    labelN.includes('sinistre') &&
+    labelN.includes('non') &&
+    labelN.includes('ouvert') &&
+    (valN === 'oui' || valN === 'yes' || valN === 'true' || valN === 'vrai');
+
+  if (isSinistreNonOuvert) {
+    rowClass += ' dm-field-row--alert-yellow';
+  }
+
+  const isNaissance =
+    labelN.includes('naissance') ||
+    labelN.includes('date de naissance') ||
+    labelN.includes('ne le') ||
+    apiN.includes('naissance') ||
+    apiN.includes('birth');
+
+  if (isNaissance) {
+    rowClass += ' dm-field-row--dob';
+    valClass += ' dm-field-val--dob';
+  }
+
+  const isBlesse =
+    labelN.includes('bless') ||
+    labelN.includes('victime') ||
+    labelN.includes('blesse') ||
+    apiN.includes('blesse') ||
+    apiN.includes('victime');
+
+  if (isBlesse) {
+    rowClass += ' dm-field-row--injury';
+    valClass += ' dm-field-val--injury';
+  }
+
+  return {
+    ...f,
+    rowClass,
+    valClass,
+    showAlertIcon: isSinistreNonOuvert,
+  };
 }
 
 /** Secours LWR : paramètres parfois absents de CurrentPageReference.state. */
@@ -158,6 +280,8 @@ export default class DetailMissionMedecin extends LightningElement {
   @track summaryItems = [];
   @track leftCardFields = [];
   @track rightCardFields = [];
+  @track statusPathSteps = [];
+  @track missionStatutCancelled = false;
 
   error;
   isLoading = true;
@@ -246,7 +370,28 @@ export default class DetailMissionMedecin extends LightningElement {
     else if (br !== '—') this.subtitleText = br;
     else this.subtitleText = '';
 
-    this.badgeStatut = fmt(pickField(map, ['Statut__c']));
+    const statutLabelRaw =
+      data.missionStatut != null && String(data.missionStatut).trim() !== ''
+        ? String(data.missionStatut).trim()
+        : null;
+    const statutApiRaw =
+      data.missionStatutApi != null && String(data.missionStatutApi).trim() !== ''
+        ? String(data.missionStatutApi).trim()
+        : null;
+    this.badgeStatut = fmt(statutLabelRaw ?? pickField(map, ['Statut__c']));
+
+    const pathSource =
+      (statutApiRaw && statutApiRaw) ||
+      (statutLabelRaw && statutLabelRaw) ||
+      (() => {
+        const pf = pickField(map, ['Statut__c']);
+        return pf != null && String(pf).trim() !== '' ? String(pf).trim() : '';
+      })();
+
+    const cancelledFlag = isStatutAnnulee(pathSource) || isStatutAnnulee(this.badgeStatut);
+    this.missionStatutCancelled = cancelledFlag;
+    this.statusPathSteps = buildStatusPathSteps(pathSource || this.badgeStatut);
+
     this.badgeBranche = fmt(missionBranche ?? pickField(map, ['Branche__c']));
     this.badgeType = typePrestataire && fmt(typePrestataire) !== '—' ? fmt(typePrestataire) : 'Médecin';
 
@@ -259,21 +404,25 @@ export default class DetailMissionMedecin extends LightningElement {
     ];
     this.summaryItems = rawSummary.map((row) => ({
       ...row,
-      cellClass: row.warn ? 'dm-meta-cell dm-meta-cell--warn' : 'dm-meta-cell',
+      cellClass: row.warn ? 'dm-summary-item dm-summary-item--warn' : 'dm-summary-item',
     }));
 
     const list = [...this.fields];
     const mid = Math.ceil(list.length / 2);
-    this.leftCardFields = list.slice(0, mid).map((f) => ({
-      key: f.apiName,
-      label: f.label,
-      value: fmt(f.value),
-    }));
-    this.rightCardFields = list.slice(mid).map((f) => ({
-      key: f.apiName,
-      label: f.label,
-      value: fmt(f.value),
-    }));
+    this.leftCardFields = list.slice(0, mid).map((f) =>
+      decorateFieldRow({
+        key: f.apiName,
+        label: f.label,
+        value: fmt(f.value),
+      }),
+    );
+    this.rightCardFields = list.slice(mid).map((f) =>
+      decorateFieldRow({
+        key: f.apiName,
+        label: f.label,
+        value: fmt(f.value),
+      }),
+    );
   }
 
   _handleLoadError(error) {
@@ -313,6 +462,8 @@ export default class DetailMissionMedecin extends LightningElement {
     this.badgeStatut = '';
     this.badgeBranche = '';
     this.badgeType = 'Médecin';
+    this.statusPathSteps = [];
+    this.missionStatutCancelled = false;
   }
 
   get hasLeftFields() {
@@ -323,8 +474,25 @@ export default class DetailMissionMedecin extends LightningElement {
     return (this.rightCardFields || []).length > 0;
   }
 
-  get showStatutBadge() {
-    return this.badgeStatut && this.badgeStatut !== '—';
+  get showHeaderStatut() {
+    const s = (this.badgeStatut || '').trim();
+    return s.length > 0 && s !== '—';
+  }
+
+  get headerStatutClass() {
+    if (this.missionStatutCancelled) {
+      return 'dm-pill dm-pill--statut dm-pill--statut-cancel';
+    }
+    const n = stripAccentsLower(this.badgeStatut);
+    if (n.includes('clotur')) {
+      return 'dm-pill dm-pill--statut dm-pill--statut-done';
+    }
+    return 'dm-pill dm-pill--statut dm-pill--statut-live';
+  }
+
+  /** Chemin de statut (Statut__c) : plus de pill statut dupliquée dans l’en-tête. */
+  get showStatusPath() {
+    return (this.statusPathSteps || []).length > 0;
   }
 
   get showBrancheBadge() {

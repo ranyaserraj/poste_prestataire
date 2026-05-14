@@ -115,6 +115,7 @@ public with sharing class MissionMedecinController {
         fieldPaths.add('Date_echeance__c');
         fieldPaths.add('Date_convocation__c');
         fieldPaths.add('Specialite__c');
+        fieldPaths.add('Statut__c');
 
         String query = 'SELECT ' + String.join(new List<String>(fieldPaths), ', ') +
                ' FROM Mission__c WHERE Id = :mid AND Prestataire__c = :accountId LIMIT 1';
@@ -144,6 +145,7 @@ public with sharing class MissionMedecinController {
 
         String brancheLabel = picklistLabelOrValue('Branche__c', mission.Branche__c);
         String natureLabel = picklistLabelOrValue('Nature_Mission__c', mission.Nature_Mission__c);
+        String statutLabel = picklistLabelOrValue('Statut__c', mission.Statut__c);
 
         return new Map<String, Object>{
             'fields' => fields,
@@ -157,7 +159,9 @@ public with sharing class MissionMedecinController {
             ),
             'missionBranche' => brancheLabel,
             'missionNature' => natureLabel,
-            'missionType' => picklistLabelOrValue('Type_de_mission__c', mission.Type_de_mission__c)
+            'missionType' => picklistLabelOrValue('Type_de_mission__c', mission.Type_de_mission__c),
+            'missionStatut' => statutLabel,
+            'missionStatutApi' => mission.Statut__c
         };
     }
 
