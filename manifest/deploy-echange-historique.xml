@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>MissionEchangeLocalService</members>
+        <members>MissionMessageController</members>
+        <members>MissionInboundMessageService</members>
+        <members>MissionEchangeReplayTriggerHandler</members>
+        <members>MissionMessageReplayQueueable</members>
+        <members>MissionMessageControllerTest</members>
+        <members>MissionMessageReplaySchedulerTest</members>
+        <members>MissionInboundMessageApiTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>EchangeMissionReplay</members>
+        <name>ApexTrigger</name>
+    </types>
+    <version>62.0</version>
+</Package>

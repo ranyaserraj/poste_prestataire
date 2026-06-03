@@ -68,6 +68,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Mission__c.Numero_mission2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Mission__c.Code_intermediaire__c</field>
         <readable>true</readable>
     </fieldPermissions>

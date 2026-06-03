@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Numero_mission2__c</fullName>
+    <description>numeroMission renvoyé par l&apos;API Poste gestionnaire (self-missionning). Utilisé pour la messagerie.</description>
+    <externalId>false</externalId>
+    <label>Numero mission</label>
+    <length>20</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

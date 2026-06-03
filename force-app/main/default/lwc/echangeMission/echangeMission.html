@@ -1,40 +1,106 @@
 <template>
-  <section class="chat">
-    <div class="thread">
-      <template for:each={thread} for:item="m">
-        <div key={m.id} class={m.bubbleClass}>
-          <div class="msg-head">
-            <div class={m.avatarClass} aria-hidden="true">
-              <span class="avatar-text">{m.avatarText}</span>
-            </div>
-            <div class="msg-who">
-              <div class="msg-who-top">
-                <span class="msg-author">{m.author}</span>
-                <span class="msg-name">{m.name}</span>
-              </div>
-              <div class={m.metaClass}>{m.meta}</div>
-            </div>
-          </div>
-
-          <div class={m.bodyClass}>{m.text}</div>
+  <section class={chatClass}>
+      <template if:true={hasError}>
+        <div class="chat-status chat-status--err">
+          {errorMessage}
+          <button type="button" class="btn-retry" onclick={handleRefresh}>Réessayer</button>
         </div>
       </template>
-    </div>
 
-    <div class="composer">
-      <div class="tags">
-        <span class="tag-lbl">Tag :</span>
-        <template for:each={tags} for:item="t">
-          <button key={t} class="tag" onclick={handleTagClick}>{t}</button>
+      <div class="thread">
+        <template if:false={hasThread}>
+          <p class="chat-empty">Aucun message pour le moment.</p>
+        </template>
+        <template for:each={thread} for:item="m">
+          <div key={m.id} class={m.bubbleClass} data-msg-id={m.id}>
+            <span class={m.dateMetaClass}>{m.dateTimeLabel}</span>
+            <template if:true={m.showSender}>
+              <span class="msg-sender">{m.senderLabel}</span>
+            </template>
+            <div class="msg-inner">
+              <template if:true={m.hasTag}>
+                <span class="msg-tag">{m.tagLabel}</span>
+              </template>
+              <p class="msg-text">{m.text}</p>
+              <div class="msg-footer">
+                <template if:true={m.showUnreadDot}>
+                  <span class="msg-unread-dot" title={m.unreadTitle} aria-label={m.unreadTitle}></span>
+                </template>
+                <template if:true={m.showStatus}>
+                  <span
+                    class={m.statusClass}
+                    title={m.statusTitle}
+                    aria-label={m.statusTitle}
+                  >{m.statusLabel}</span>
+                </template>
+                <template if:true={m.showDeliveryWarning}>
+                  <span
+                    class="msg-delivery-warn"
+                    title={m.deliveryTitle}
+                    aria-label={m.deliveryTitle}
+                  >!</span>
+                </template>
+                <template if:true={m.showManualRetry}>
+                  <button
+                    type="button"
+                    class={m.resendButtonClass}
+                    title={m.manualRetryTitle}
+                    aria-label={m.manualRetryTitle}
+                    data-sf-exchange-id={m.sfExchangeId}
+                    data-retry-key={m.retryKey}
+                    onclick={handleManualResync}
+                    disabled={m.isRetrying}
+                  >
+                    <span class="btn-msg-resend__icon" aria-hidden="true">↻</span>
+                  </button>
+                </template>
+              </div>
+            </div>
+          </div>
         </template>
       </div>
 
-      <div class="compose-row">
-        <textarea class="input" placeholder="Répondre au gestionnaire..."></textarea>
-        <div class="actions">
-          <button class="btn btn--primary" onclick={handleSend}>Envoyer</button>
+      <div class="composer">
+        <div class="tags">
+          <span class="tag-lbl">Tag :</span>
+          <template for:each={tags} for:item="t">
+            <button
+              key={t.key}
+              type="button"
+              class={t.className}
+              data-value={t.value}
+              aria-pressed={t.ariaPressed}
+              onclick={handleTagClick}
+            >
+              {t.label}
+            </button>
+          </template>
+        </div>
+        <p class="tag-hint">
+          <template if:true={hasSelectedTag}>Tag sélectionné — vous pouvez envoyer.</template>
+          <template if:false={hasSelectedTag}>Sélectionnez un tag pour activer l'envoi.</template>
+        </p>
+
+        <div class="compose-row">
+          <textarea
+            class="input"
+            placeholder="Répondre au gestionnaire…"
+            value={draft}
+            oninput={handleDraftChange}
+            disabled={isSending}
+          ></textarea>
+          <div class="actions">
+            <button
+              type="button"
+              class="btn btn--primary"
+              onclick={handleSendClick}
+              disabled={sendDisabled}
+            >
+              <template if:true={isSending}>Envoi…</template>
+              <template if:false={isSending}>Envoyer</template>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
   </section>
 </template>

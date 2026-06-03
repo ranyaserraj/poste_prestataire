@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>MissionEchangeLocalService</members>
+        <members>MissionMessageController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Echange__c.Statut_Sync__c</members>
+        <members>Echange__c.Source__c</members>
+        <name>CustomField</name>
+    </types>
+    <version>62.0</version>
+</Package>

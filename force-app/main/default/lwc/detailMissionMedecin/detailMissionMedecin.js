@@ -1,13 +1,17 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import getMissionDetails from '@salesforce/apex/MissionMedecinController.getMissionDetails';
 import { CurrentPageReference } from 'lightning/navigation';
+import {
+  CANONICAL_MISSION_URL_PARAM,
+  canonicalizeMissionUrl,
+} from 'c/missionUrlUtils';
 
 const TAB_DEFS = [
-  { id: 'infos', label: 'Infos', icon: 'utility:info', badgeCount: 0 },
-  { id: 'docs', label: 'Documents', icon: 'utility:attach', badgeCount: 2 },
-  { id: 'msg', label: 'Messagerie', icon: 'utility:chat', badgeCount: 1 },
-  { id: 'hon', label: 'Honoraires', icon: 'utility:moneybag', badgeCount: 0 },
-  { id: 'hist', label: 'Historique', icon: 'utility:clock', badgeCount: 0 },
+  { id: 'infos', label: 'Infos', icon: 'utility:info' },
+  { id: 'docs', label: 'Documents', icon: 'utility:attach', badgeKey: 'docs' },
+  { id: 'msg', label: 'Messagerie', icon: 'utility:chat', badgeKey: 'msg' },
+  { id: 'hon', label: 'Honoraires', icon: 'utility:moneybag' },
+  { id: 'hist', label: 'Historique', icon: 'utility:clock' },
 ];
 
 function fieldMapFromPayload(fields) {
@@ -51,7 +55,7 @@ function unwrapMissionIdCandidate(raw) {
   }
   if (v == null || v === '') return undefined;
   if (typeof v === 'object') {
-    const inner = v.recordId ?? v.id ?? v.value ?? v.missionId ?? v.c__missionId;
+    const inner = v.c__missionId ?? v.missionId ?? v.c__recordId ?? v.recordId ?? v.id ?? v.value;
     if (inner != null && inner !== v) {
       return unwrapMissionIdCandidate(inner);
     }
@@ -196,10 +200,39 @@ function decorateFieldRow(f) {
   };
 }
 
+/**
+ * Priorité Experience : c__missionId avant missionId.
+ * Sinon un ancien missionId reste dans l'URL et écrase la mission affichée.
+ */
+function resolveMissionIdFromSearchParams(params) {
+  if (!params) {
+    return undefined;
+  }
+  const canonical = normalizeMissionIdParam(params.get(CANONICAL_MISSION_URL_PARAM));
+  if (canonical) {
+    return canonical;
+  }
+  const mission = normalizeMissionIdParam(params.get('missionId'));
+  if (mission) {
+    return mission;
+  }
+  const cRecord = normalizeMissionIdParam(params.get('c__recordId'));
+  if (cRecord) {
+    return cRecord;
+  }
+  const record = normalizeMissionIdParam(params.get('recordId'));
+  if (record) {
+    return record;
+  }
+  return undefined;
+}
+
 /** Secours LWR : paramètres parfois absents de CurrentPageReference.state. */
 function readMissionIdFromUrl() {
   const tryParse = (search) => {
-    if (!search || search.length < 2) return undefined;
+    if (!search || search.length < 2) {
+      return undefined;
+    }
     const q = search.startsWith('?') ? search.slice(1) : search;
     let params;
     try {
@@ -207,15 +240,12 @@ function readMissionIdFromUrl() {
     } catch (e) {
       return undefined;
     }
-    const keys = ['missionId', 'c__missionId', 'recordId', 'c__recordId'];
-    for (let i = 0; i < keys.length; i++) {
-      const n = normalizeMissionIdParam(params.get(keys[i]));
-      if (n) return n;
-    }
-    return undefined;
+    return resolveMissionIdFromSearchParams(params);
   };
   let m = tryParse(typeof window !== 'undefined' ? window.location.search : '');
-  if (m) return m;
+  if (m) {
+    return m;
+  }
   const hash = typeof window !== 'undefined' ? window.location.hash || '' : '';
   const qi = hash.indexOf('?');
   if (qi >= 0) {
@@ -243,6 +273,8 @@ export default class DetailMissionMedecin extends LightningElement {
       return;
     }
     this._missionId = next;
+    this._recordId = next || undefined;
+    canonicalizeMissionUrl(next);
 
     if (!next) {
       this._resetEmptySelection();
@@ -254,9 +286,8 @@ export default class DetailMissionMedecin extends LightningElement {
   }
 
   /**
-   * Support record pages / context record.
-   * - On a Record Page, Experience/Lightning fournit souvent `recordId`.
-   * - On privilégie `missionId` si déjà fourni explicitement.
+   * Record page Experience : synchronisé avec missionId pour éviter une messagerie
+   * rattachée à une mission précédente encore en mémoire.
    */
   @api
   get recordId() {
@@ -264,8 +295,14 @@ export default class DetailMissionMedecin extends LightningElement {
   }
   set recordId(value) {
     const next = normalizeMissionIdParam(value);
+    if (next === this._recordId && next === this._missionId) {
+      return;
+    }
     this._recordId = next;
-    if (!this._missionId && next) {
+    if (!next) {
+      return;
+    }
+    if (next !== this._missionId) {
       this.missionId = next;
     }
   }
@@ -285,18 +322,40 @@ export default class DetailMissionMedecin extends LightningElement {
 
   error;
   isLoading = true;
+  messagingEnabled = false;
+  messagingDisabledMessage =
+    'Messagerie indisponible : mission non synchronisée avec le gestionnaire ou profil non éligible.';
+  msgBadgeCount = 0;
+  docsBadgeCount = 2;
 
   get hasMissionId() {
-    return !!normalizeMissionIdParam(this._missionId);
+    return !!this.effectiveMissionRecordId;
+  }
+
+  /** Id Mission__c unique (missionId + recordId toujours alignés). */
+  get effectiveMissionRecordId() {
+    return (
+      normalizeMissionIdParam(this._missionId) ||
+      normalizeMissionIdParam(this._recordId) ||
+      undefined
+    );
+  }
+
+  /** @deprecated utiliser effectiveMissionRecordId */
+  get documentUploaderRecordId() {
+    return this.effectiveMissionRecordId;
   }
 
   connectedCallback() {
-    if (!this._missionId) {
-      const fromUrl = readMissionIdFromUrl();
-      if (fromUrl) {
-        this.missionId = fromUrl;
-        return;
-      }
+    this._boundUrlMissionSync = this._syncMissionIdFromUrl.bind(this);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('popstate', this._boundUrlMissionSync);
+      window.addEventListener('hashchange', this._boundUrlMissionSync);
+    }
+    const fromUrl = readMissionIdFromUrl();
+    if (fromUrl) {
+      this.missionId = fromUrl;
+      return;
     }
     if (normalizeMissionIdParam(this._missionId)) {
       this.scheduleLoad();
@@ -305,14 +364,34 @@ export default class DetailMissionMedecin extends LightningElement {
     }
   }
 
+  disconnectedCallback() {
+    if (this._boundUrlMissionSync && typeof window !== 'undefined') {
+      window.removeEventListener('popstate', this._boundUrlMissionSync);
+      window.removeEventListener('hashchange', this._boundUrlMissionSync);
+    }
+  }
+
+  _syncMissionIdFromUrl() {
+    const fromUrl = readMissionIdFromUrl();
+    if (fromUrl && fromUrl !== this._missionId) {
+      this.missionId = fromUrl;
+    }
+  }
+
   @wire(CurrentPageReference)
   wiredPageRef(pageRef) {
     const state = pageRef?.state;
-    const midRaw = state?.missionId || state?.c__missionId || state?.recordId || state?.c__recordId;
+    const midRaw =
+      state?.c__missionId ||
+      state?.c__recordId ||
+      state?.missionId ||
+      state?.recordId;
     const normalized = normalizeMissionIdParam(midRaw);
     if (normalized && normalized !== this._missionId) {
       this.missionId = normalized;
+      return;
     }
+    this._syncMissionIdFromUrl();
   }
 
   scheduleLoad() {
@@ -407,6 +486,36 @@ export default class DetailMissionMedecin extends LightningElement {
       cellClass: row.warn ? 'dm-summary-item dm-summary-item--warn' : 'dm-summary-item',
     }));
 
+    const missionTypePrest =
+      data.missionTypePrestataire != null ? String(data.missionTypePrestataire) : '';
+    const isAvocat =
+      missionTypePrest.toLowerCase() === 'avocat' ||
+      (typePrestataire && String(typePrestataire).toLowerCase() === 'avocat');
+    const numeroMissionGm =
+      data.numeroMissionGestionnaire != null && String(data.numeroMissionGestionnaire).trim() !== ''
+        ? String(data.numeroMissionGestionnaire).trim()
+        : data.externalMissionId != null && String(data.externalMissionId).trim() !== ''
+          ? String(data.externalMissionId).trim()
+          : null;
+
+    this.messagingEnabled = data.messagingEnabled === true;
+    if (isAvocat) {
+      this.messagingEnabled = false;
+      this.messagingDisabledMessage =
+        'La messagerie par mission n\'est pas disponible pour le profil Avocat.';
+    } else if (!this.messagingEnabled) {
+      this.messagingDisabledMessage = numeroMissionGm
+        ? 'Messagerie indisponible pour cette mission.'
+        : 'Mission non synchronisée avec le gestionnaire : enregistrez un numeroMission (sync API) pour activer la messagerie.';
+    } else {
+      this.messagingDisabledMessage =
+        'Messagerie indisponible pour cette mission.';
+    }
+
+    const unread = data.echangesNonLus;
+    this.msgBadgeCount =
+      unread != null && !Number.isNaN(Number(unread)) ? Math.max(0, Number(unread)) : 0;
+
     const list = [...this.fields];
     const mid = Math.ceil(list.length / 2);
     this.leftCardFields = list.slice(0, mid).map((f) =>
@@ -500,13 +609,19 @@ export default class DetailMissionMedecin extends LightningElement {
   }
 
   get tabsNav() {
-    return TAB_DEFS.map((t) => ({
-      ...t,
-      key: t.id,
-      isActive: this.activeTab === t.id,
-      tabClass: `dm-tab${this.activeTab === t.id ? ' dm-tab--active' : ''}`,
-      showBadge: (t.badgeCount || 0) > 0,
-    }));
+    return TAB_DEFS.map((t) => {
+      let badgeCount = 0;
+      if (t.badgeKey === 'msg') badgeCount = this.msgBadgeCount;
+      if (t.badgeKey === 'docs') badgeCount = this.docsBadgeCount;
+      return {
+        ...t,
+        key: t.id,
+        badgeCount,
+        isActive: this.activeTab === t.id,
+        tabClass: `dm-tab${this.activeTab === t.id ? ' dm-tab--active' : ''}`,
+        showBadge: badgeCount > 0,
+      };
+    });
   }
 
   handleTabClick(event) {

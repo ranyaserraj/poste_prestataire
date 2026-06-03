@@ -1,4 +1,5 @@
 <template>
+  <c-prestataire-shell>
   <div class="dm-root">
     <template if:true={isLoading}>
       <div class="dm-loading" role="status" aria-live="polite">
@@ -178,21 +179,25 @@
             <template if:true={showDocs}>
               <section class="dm-card dm-card--full" aria-labelledby="dm-docs-h">
                 <h2 id="dm-docs-h" class="dm-card-h">Documents</h2>
-                <div class="dm-card-body">
-                  <p class="dm-empty">Aucun document pour le moment.</p>
+                <div class="dm-card-body dm-card-body--docs">
+                  <template if:true={hasMissionId}>
+                    <c-document-uploader record-id={effectiveMissionRecordId}></c-document-uploader>
+                  </template>
+                  <template if:false={hasMissionId}>
+                    <p class="dm-empty">Aucune mission sélectionnée — impossible de charger les documents.</p>
+                  </template>
                 </div>
               </section>
             </template>
 
             <template if:true={showMsg}>
-              <section class="dm-card dm-card--full" aria-label="Messagerie mission">
-                <h2 class="dm-card-h">Messagerie</h2>
-                <div class="dm-card-body dm-card-body--tight">
-                  <div class="dm-chat">
-                    <c-echange-mission></c-echange-mission>
-                  </div>
-                </div>
-              </section>
+              <c-mission-messagerie
+                key={effectiveMissionRecordId}
+                record-id={effectiveMissionRecordId}
+                mission-id={effectiveMissionRecordId}
+                messaging-enabled={messagingEnabled}
+                disabled-message={messagingDisabledMessage}
+              ></c-mission-messagerie>
             </template>
 
             <template if:true={showHon}>
@@ -217,4 +222,5 @@
       </template>
     </template>
   </div>
+  </c-prestataire-shell>
 </template>

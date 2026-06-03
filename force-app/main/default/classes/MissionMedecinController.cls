@@ -116,6 +116,10 @@ public with sharing class MissionMedecinController {
         fieldPaths.add('Date_convocation__c');
         fieldPaths.add('Specialite__c');
         fieldPaths.add('Statut__c');
+        fieldPaths.add('Numero_mission2__c');
+        fieldPaths.add('ParentId__c');
+        fieldPaths.add('Type_Prestataire__c');
+        fieldPaths.add('Echanges_non_lus__c');
 
         String query = 'SELECT ' + String.join(new List<String>(fieldPaths), ', ') +
                ' FROM Mission__c WHERE Id = :mid AND Prestataire__c = :accountId LIMIT 1';
@@ -161,8 +165,34 @@ public with sharing class MissionMedecinController {
             'missionNature' => natureLabel,
             'missionType' => picklistLabelOrValue('Type_de_mission__c', mission.Type_de_mission__c),
             'missionStatut' => statutLabel,
-            'missionStatutApi' => mission.Statut__c
+            'missionStatutApi' => mission.Statut__c,
+            'missionTypePrestataire' => mission.Type_Prestataire__c,
+            'externalMissionId' => externalNumeroMission(mission),
+            'numeroMissionGestionnaire' => externalNumeroMission(mission),
+            'apiMissionId' => numeroMissionAsLong(mission),
+            'messagingEnabled' => isMessagingEnabled(mission),
+            'echangesNonLus' => mission.Echanges_non_lus__c
         };
+    }
+
+    private static Boolean isMessagingEnabled(Mission__c mission) {
+        return MissionMessagingUtil.canUseMessaging(mission);
+    }
+
+    private static String externalNumeroMission(Mission__c mission) {
+        return MissionMessagingUtil.primaryNumeroMission(mission);
+    }
+
+    private static Long numeroMissionAsLong(Mission__c mission) {
+        String nm = MissionMessagingUtil.primaryNumeroMission(mission);
+        if (String.isBlank(nm)) {
+            return null;
+        }
+        try {
+            return Long.valueOf(nm);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private static String getFieldSetName(String typePrestataire) {

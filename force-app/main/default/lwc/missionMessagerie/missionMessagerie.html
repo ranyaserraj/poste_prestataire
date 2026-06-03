@@ -1,0 +1,18 @@
+<template>
+  <template if:true={hasRecordId}>
+    <template if:true={showChat}>
+      <c-echange-mission
+        key={activeMissionId}
+        embedded
+        record-id={activeMissionId}
+        mission-id={activeMissionId}
+      ></c-echange-mission>
+    </template>
+    <template if:true={showDisabled}>
+      <p class="mm-empty">{disabledMessage}</p>
+    </template>
+  </template>
+  <template if:false={hasRecordId}>
+    <p class="mm-empty">Aucune mission sélectionnée — impossible d'afficher la messagerie.</p>
+  </template>
+</template>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>false</isExposed>
+    <masterLabel>Mission messagerie</masterLabel>
+    <description>Messagerie mission (enfant de detailMissionMedecin), sans en-tete ni cadre.</description>
+</LightningComponentBundle>
