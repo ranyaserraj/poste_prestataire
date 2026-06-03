@@ -1,0 +1,157 @@
+<template>
+    <c-prestataire-shell>
+    <div class="dma-wrap">
+
+        <template if:true={isLoading}>
+            <div class="dma-loading">
+                <div class="dma-spinner">
+                    <span></span><span></span><span></span>
+                </div>
+                <p>Chargement de la mission...</p>
+            </div>
+        </template>
+
+        <template if:true={hasError}>
+            <div class="dma-error">
+                <p>Impossible de charger la mission.</p>
+            </div>
+        </template>
+
+        <template if:true={isReady}>
+
+            <!-- HEADER -->
+            <div class="dma-header">
+                <div class="dma-header-top">
+                    <div class="dma-header-left">
+                        <div class="dma-mission-num-row">
+                            <span class="dma-mission-num">{missionName}</span>
+                            <template for:each={badgeFields} for:item="field">
+                                <span key={field.apiName} class="dma-status-badge">
+                                    <span class="dma-bdot"></span>
+                                    {field.value}
+                                </span>
+                            </template>
+                        </div>
+                        <div class="dma-mission-nature">Clinique · Auto-missionnement · Prise en charge</div>
+                    </div>
+                </div>
+
+                <div class="dma-header-meta">
+                    <template for:each={metaFields} for:item="field">
+                        <div key={field.apiName} class="dma-meta-field">
+                            <span class="dma-meta-lbl">{field.label}</span>
+                            <span class="dma-meta-val">{field.value}</span>
+                        </div>
+                        <div key={field.sepKey} class="dma-meta-sep"></div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="dma-content">
+
+                <!-- TABS -->
+                <div class="dma-tabs">
+                    <button class={informationsClass} data-tab="informations" onclick={handleTabClick} type="button">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
+                        Informations
+                    </button>
+                    <button class={honorairesClass} data-tab="honoraires" onclick={handleTabClick} type="button">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Honoraires
+                    </button>
+                    <button class={documentsClass} data-tab="documents" onclick={handleTabClick} type="button">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        Documents
+                    </button>
+                    <button class={messagerieClass} data-tab="messagerie" onclick={handleTabClick} type="button">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        Messagerie
+                    </button>
+                    <button class={historiqueClass} data-tab="historique" onclick={handleTabClick} type="button">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Historique
+                    </button>
+                </div>
+
+                <!-- TAB CONTENT -->
+                <template if:true={isInformations}>
+                    <div class="dma-pane">
+                        <div class="dma-info-grid">
+
+                            <!-- Colonne 1 : Informations générales -->
+                            <div class="dma-card">
+                                <div class="dma-card-h">Informations générales</div>
+                                <div class="dma-card-body">
+                                    <dl class="dma-fields">
+                                        <template for:each={generalFields} for:item="field">
+                                            <div key={field.apiName} class="dma-field-row">
+                                                <dt class="dma-field-lbl">{field.label}</dt>
+                                                <dd class="dma-field-val">{field.value}</dd>
+                                            </div>
+                                        </template>
+                                    </dl>
+                                </div>
+                            </div>
+
+                            <!-- Colonne 2 : Informations spécifiques -->
+                            <div class="dma-card">
+                                <div class="dma-card-h">Informations spécifiques</div>
+                                <div class="dma-card-body">
+                                    <dl class="dma-fields">
+                                        <template for:each={specificFields} for:item="field">
+                                            <div key={field.apiName} class="dma-field-row">
+                                                <dt class="dma-field-lbl">{field.label}</dt>
+                                                <dd class="dma-field-val">{field.value}</dd>
+                                            </div>
+                                        </template>
+                                    </dl>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={isHonoraires}>
+                    <div class="dma-pane">
+                        <div class="dma-card">
+                            <div class="dma-card-h">Honoraires</div>
+                            <div class="dma-card-body">
+                                <c-honoraire-form></c-honoraire-form>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={isDocuments}>
+                    <div class="dma-pane">
+                        <c-document-uploader record-id={_resolvedMissionId}></c-document-uploader>
+                    </div>
+                </template>
+
+                <template if:true={isMessagerie}>
+                    <div class="dma-pane">
+                        <c-mission-messagerie
+                            key={_resolvedMissionId}
+                            mission-id={_resolvedMissionId}
+                            record-id={_resolvedMissionId}
+                        ></c-mission-messagerie>
+                    </div>
+                </template>
+                <template if:true={isHistorique}>
+                    <div class="dma-pane">
+                        <div class="dma-card">
+                            <div class="dma-card-h">Historique</div>
+                            <div class="dma-card-body">
+                                <c-historique-phase mission-id={_resolvedMissionId}></c-historique-phase>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+        </template>
+    </div>
+    </c-prestataire-shell>
+</template>

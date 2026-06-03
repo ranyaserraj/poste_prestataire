@@ -1,5 +1,8 @@
 <template>
   <template if:true={hasRecordId}>
+    <template if:true={showLoading}>
+      <p class="mm-empty">Chargement de la messagerie…</p>
+    </template>
     <template if:true={showChat}>
       <c-echange-mission
         key={activeMissionId}
@@ -9,7 +12,7 @@
       ></c-echange-mission>
     </template>
     <template if:true={showDisabled}>
-      <p class="mm-empty">{disabledMessage}</p>
+      <p class="mm-empty">{effectiveDisabledMessage}</p>
     </template>
   </template>
   <template if:false={hasRecordId}>

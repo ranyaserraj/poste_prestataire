@@ -56,6 +56,60 @@ private class MissionMessageControllerTest {
     }
 
     @IsTest
+    static void getMessagingGate_avocat_disabled() {
+        Account acc = new Account(Name = 'Test Prestataire');
+        insert acc;
+
+        Contact con = new Contact(LastName = 'Test', AccountId = acc.Id);
+        insert con;
+
+        Mission__c m = new Mission__c(
+            Name = 'Mission avocat gate',
+            Prestataire__c = acc.Id,
+            Type_Prestataire__c = 'Avocat',
+            Id_Externe_API__c = '12345'
+        );
+        insert m;
+
+        User u = createPortalUser(con.Id);
+        System.runAs(u) {
+            MissionMessageController.MessagingGateDto gate =
+                MissionMessageController.getMessagingGate(m.Id);
+            System.assertEquals(false, gate.messagingEnabled);
+            System.assert(
+                gate.disabledMessage != null
+                    && gate.disabledMessage.contains('Avocat')
+            );
+        }
+    }
+
+    @IsTest
+    static void getMessagingGate_medecin_with_numero_enabled() {
+        Account acc = new Account(Name = 'Med Prest');
+        insert acc;
+
+        Contact con = new Contact(LastName = 'Med', AccountId = acc.Id);
+        insert con;
+
+        Mission__c m = new Mission__c(
+            Name = 'Mission med gate',
+            Prestataire__c = acc.Id,
+            Type_Prestataire__c = 'Medecin',
+            Numero_mission2__c = '202605180021'
+        );
+        insert m;
+
+        User u = createPortalUser(con.Id);
+        System.runAs(u) {
+            MissionMessageController.MessagingGateDto gate =
+                MissionMessageController.getMessagingGate(m.Id);
+            System.assertEquals(true, gate.messagingEnabled);
+            System.assertEquals(null, gate.disabledMessage);
+            System.assertEquals('202605180021', gate.numeroMissionGestionnaire);
+        }
+    }
+
+    @IsTest
     static void getMessages_success() {
         if (!MissionEchangeLocalService.isAvailable()) {
             return;

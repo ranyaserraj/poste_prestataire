@@ -23,6 +23,13 @@ public without sharing class MissionMessageController {
         @AuraEnabled public String deliveryError;
     }
 
+    public class MessagingGateDto {
+        @AuraEnabled public Boolean messagingEnabled;
+        @AuraEnabled public String disabledMessage;
+        @AuraEnabled public String typePrestataire;
+        @AuraEnabled public String numeroMissionGestionnaire;
+    }
+
     private class MissionCtx {
         Id salesforceId;
         List<String> apiMissionIds;
@@ -31,6 +38,70 @@ public without sharing class MissionMessageController {
     }
 
     private static final Integer MAX_REPLAY_PER_REQUEST = 20;
+
+    /**
+     * Éligibilité messagerie pour le portail (sans callout).
+     * Même règles que MissionMedecinController / detailMissionMedecin.
+     */
+    @AuraEnabled(cacheable=true)
+    public static MessagingGateDto getMessagingGate(String missionId) {
+        MessagingGateDto gate = new MessagingGateDto();
+        gate.messagingEnabled = false;
+        gate.disabledMessage = 'Messagerie indisponible pour cette mission.';
+
+        Id mid = parseSalesforceId(missionId);
+        if (mid == null) {
+            gate.disabledMessage = 'Identifiant mission invalide.';
+            return gate;
+        }
+
+        Id accountId = currentAccountId();
+        if (accountId == null) {
+            gate.disabledMessage = 'Utilisateur sans compte prestataire associé.';
+            return gate;
+        }
+
+        List<Mission__c> rows = [
+            SELECT
+                Id,
+                Prestataire__c,
+                Type_Prestataire__c,
+                Numero_mission2__c,
+                ParentId__c,
+                Id_Externe_API__c
+            FROM Mission__c
+            WHERE Id = :mid AND Prestataire__c = :accountId
+            LIMIT 1
+        ];
+        if (rows.isEmpty()) {
+            gate.disabledMessage = 'Mission introuvable ou accès refusé.';
+            return gate;
+        }
+
+        Mission__c m = rows[0];
+        gate.typePrestataire = m.Type_Prestataire__c;
+        gate.numeroMissionGestionnaire = MissionMessagingUtil.primaryNumeroMission(m);
+
+        if (isAvocatMission(m)) {
+            gate.disabledMessage =
+                'La messagerie par mission n\'est pas disponible pour le profil Avocat.';
+            return gate;
+        }
+
+        gate.messagingEnabled = MissionMessagingUtil.canUseMessaging(m);
+        if (gate.messagingEnabled) {
+            gate.disabledMessage = null;
+            return gate;
+        }
+
+        if (String.isNotBlank(gate.numeroMissionGestionnaire)) {
+            gate.disabledMessage = 'Messagerie indisponible pour cette mission.';
+        } else {
+            gate.disabledMessage =
+                'Mission non synchronisée avec le gestionnaire : enregistrez un numeroMission (sync API) pour activer la messagerie.';
+        }
+        return gate;
+    }
 
     @AuraEnabled(cacheable=false)
     public static List<MessageDto> getMessages(String missionId) {
